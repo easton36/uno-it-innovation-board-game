@@ -1,6 +1,8 @@
 const assert = require('assert');
 
 const { validateToken, generateToken } = require('../helpers/user.helper');
+const { checkGamesForUserId } = require('../helpers/queries.helper');
+const Websocket = require('../../../websocket/websocket.manager');
 
 const initializeUser = async (req, res, next) => {
 	try{
@@ -10,12 +12,27 @@ const initializeUser = async (req, res, next) => {
 		let userToken;
 		let userId;
 
+		let activeGame;
+
 		if(token){ // if a token is provided, validate it
 			validToken = await validateToken(token);
 
 			if(validToken){ // if the user already has a valid token, use it
 				userToken = token;
 				userId = validToken.userId;
+
+				// check if the user is in any active games
+				const userGame = await checkGamesForUserId(userId);
+				if(userGame){
+					activeGame = {
+						code: userGame.code,
+						status: userGame.status,
+						players: userGame.players?.map(player => player._id),
+						deck: userGame.deck
+					};
+					// if the user is in an active game, join the game's websocket room
+					Websocket.joinRoom(userId, userGame._id);
+				}
 			}
 		}
 
@@ -33,7 +50,9 @@ const initializeUser = async (req, res, next) => {
 
 		return res.status(200).json({
 			success: true,
-			token: userToken
+			token: userToken,
+			userId,
+			activeGame
 		});
 	} catch(err){
 		return next(err);

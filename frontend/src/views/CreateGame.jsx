@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -11,7 +11,9 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 import { CREATE_GAME } from '../api/fetch';
 
-const CreateGame = () => {
+const CreateGame = ({ setActiveGame }) => {
+	const navigate = useNavigate();
+
 	const [toast, setToast] = useState({
 		open: false,
 		message: '',
@@ -27,7 +29,7 @@ const CreateGame = () => {
 			message: message,
 			severity: type
 		});
-	}
+	};
 
 	const createGame = async () => {
 		if(![5, 10, 15].includes(gameLength)){
@@ -45,8 +47,15 @@ const CreateGame = () => {
 			return openToast('error', response.message || 'An error occurred');
 		}
 
+		setActiveGame(response.data);
+
+		setGameLength('');
+		setGameDeck('');
+
 		openToast('success', 'Game created successfully');
-		alert(JSON.stringify(response));
+		alert(JSON.stringify(response.data));
+
+		return navigate(`/game`);
 	};
 
 
@@ -104,9 +113,7 @@ const CreateGame = () => {
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				message={toast.message}
 				severity={toast.severity}
-			>
-
-			</Snackbar>
+			/>
 		</Grid>
 	);
 }

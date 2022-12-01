@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { INITIATE_USER } from './api/fetch';
+import Main from './views/Main';
+import CreateGame from './views/CreateGame';
+import JoinGame from './views/JoinGame';
+import Game from './views/Game';
 
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
+import { INITIATE_USER } from './api/fetch';
+
 const theme = createTheme({
 	palette: {
 		gray: {
@@ -21,60 +20,59 @@ const theme = createTheme({
 	}
 });
 
+const socket = io('http://localhost:3000', {
+	extraHeaders: {
+		Authorization: `Bearer ${localStorage.getItem('token')}`
+	}
+});
+
 const App = () => {
-  	const [isConnected, setIsConnected] = useState(socket.connected);
+  	const [isConnected, setIsConnected] = useState(socket?.connected);
+
+	const [user, setUser] = useState(null);
+	const [activeGame, setActiveGame] = useState(null);
 
 	const initiateUser = async () => {
 		const response = await INITIATE_USER();
-
+	
 		if(response.success){
 			localStorage.setItem('token', response.token);
+		}
+
+		setUser(response.userId);
+	
+		if(response?.activeGame){
+			setActiveGame(response.activeGame);
 		}
 	};
 
   	useEffect(() => {
 		initiateUser();
 
-		socket.on('connect', () => {
+		socket?.on('connect', () => {
 			setIsConnected(true);
 		});
 
-		socket.on('disconnect', () => {
+		socket?.on('disconnect', () => {
 			setIsConnected(false);
 		});
 
 		return () => {
-			socket.off('connect');
-			socket.off('disconnect');
+			socket?.off('connect');
+			socket?.off('disconnect');
 		};
 	}, []);
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Grid item container direction="column" justifyContent="center" alignItems="center" minHeight="70vh">
-				<Typography component="h1" variant="h3">
-					Cards Against Humanity
-				</Typography>
-				<Box noValidate sx={{
-					mt: 1,
-					display: 'flex',
-					flexDirection: 'row',
-					alignItems: 'center',
-					gap: 2,
-				}}>
-					<Link to="/create-game">
-						<Button type="submit" variant="contained" sx={{ mt: 2, py: 2, width: 180, fontSize: 16 }}>
-							Create Game
-						</Button>
-					</Link>
-					
-					<Link to="/join-game">
-						<Button type="submit" variant="contained" sx={{ mt: 2, py: 2, width: 180, fontSize: 16 }}>
-							Join Game
-						</Button>
-					</Link>
-				</Box>
-			</Grid>
+			<Router>
+				<Routes>
+					<Route path="/" element={<Main activeGame={activeGame}/>} />
+					<Route path="/create-game" element={<CreateGame setActiveGame={setActiveGame}/>} />
+					<Route path="/join-game" element={<JoinGame setActiveGame={setActiveGame}/>} />
+					<Route path="/game" element={<Game activeGame={activeGame} setActiveGame={setActiveGame} user={user}/>} />
+				</Routes>
+			</Router>
 		</ThemeProvider>
 	);
 }

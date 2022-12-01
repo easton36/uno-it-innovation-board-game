@@ -16,7 +16,8 @@ const authentication = async (socket, next) => {
 		const jwtPayload = jwt.verify(token, process.env.JWT_SECRET);
 
 		socket.user = {
-			...jwtPayload
+			...jwtPayload,
+			id: jwtPayload.userId
 		};
 
 		return next();

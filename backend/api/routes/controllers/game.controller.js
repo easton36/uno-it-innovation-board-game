@@ -2,7 +2,8 @@ const assert = require('assert');
 
 // database logic is separated from the controller logic
 const { findGame, insertGame } = require('../helpers/queries.helper');
-const { generateGameCode } = require('../helpers/game.helper');
+const { generateGameCode, pickUserCards, pickBlackCard } = require('../helpers/game.helper');
+const Websocket = require('../../../websocket/websocket.manager');
 
 const MAX_PLAYERS = 10;
 
@@ -22,11 +23,12 @@ const fetchGame = async (req, res, next) => {
 			success: true,
 			data: {
 				code: gameCode,
+				round: game.round,
 				status: game.status,
-				gameId: game._id,
 				deck: game.deck,
 				gameLength: game.gameLength,
-				players: game.players?.map(player => player._id)
+				players: game.players?.map(player => player._id),
+				currentRound: game.rounds[game.round - 1]
 			}
 		});
 	} catch(err){
@@ -41,6 +43,10 @@ const joinGame = async (req, res, next) => {
 
 		// assertions throw an error if the provided condition is false
 		assert(code, 'Please provide a game code');
+
+		// check if the user is already in a game
+		const userGames = await Websocket.getUserRooms(req.user.id);
+		assert(userGames.length === 0, 'You are already in a game!');
 
 		// get game from database
 		const game = await findGame(code);
@@ -65,12 +71,14 @@ const joinGame = async (req, res, next) => {
 		game.players.push({
 			_id: req.user.id,
 			points: 0,
-			cards: [],
-			answers: []
+			cards: []
 		});
 
 		// save the game to the database
 		await game.save();
+
+		// join user to websocket room
+		Websocket.joinRoom(req.user.id, code);
 
 		return res.status(200).json({
 			success: true,
@@ -98,11 +106,18 @@ const createGame = async (req, res, next) => {
 		assert(gameLength, 'Please provide a game length');
 		assert([5, 10, 15].includes(Number(gameLength)), 'Invalid game length');
 
+		// check if the user is already in a game
+		const userGames = await Websocket.getUserRooms(req.user.id);
+		assert(userGames.length === 0, 'You are already in a game!');
+
 		const gameCode = generateGameCode();
 
 		// create game in database
 		const game = await insertGame(req.user.id, gameCode, deck, gameLength);
 		assert(game, 'Failed to create game');
+
+		// join user to websocket room
+		Websocket.joinRoom(req.user.id, gameCode);
 
 		return res.status(200).json({
 			success: true,
@@ -129,17 +144,61 @@ const startGame = async (req, res, next) => {
 
 		// only the game creator can start the game
 		assert(game.creator === req.user.id, 'You are not the creator of this game!');
-		// the game cannot have already started
-		assert(game.status === 'waiting_for_players', 'Game has already started!');
+		// the game current round cannot have already started
+		assert(game.rounds[game.round - 1] === 'finished', 'Wait until the previous round has finished!');
 		// the game must have at least 3 players
 		assert(game.players?.length >= 3, 'Game must have at least 3 players to start!');
 
-		// TODO - actually add logic to start the game
-		// start the game
-		game.status = 'in_progress';
+		const newRound = {};
+
+		// pick the card czar for this round, we move in a circle so just iterate through the players array from round number
+		newRound.cardCzar = game.players[game.round % game.players?.length];
+		// pick a black card for this round
+		newRound.blackCard = pickBlackCard(game.previousBlackCards);
+
+		// update black cards
+		game.previousBlackCards.push(game.blackCard);
+
+		// pick cards for each player, minus the card czar
+		const playerRoundCards = pickUserCards(game.players.filter(player => player._id !== newRound.cardCzar?._id).map(player => player._id));
+		// add the cards to the players
+		for(const player of game.players){
+			if(player._id === newRound.cardCzar?._id){
+				player.cards = [];
+				player.cardCzar = true;
+			} else{
+				player.cards = playerRoundCards[player._id];
+				player.cardCzar = false;
+			}
+		}
+
+		// set game status to in progress if this is the first round
+		if(game.round === 0){
+			game.status = 'in_progress';
+		}
+
+		game.round++;
+		game.rounds.push(newRound);
 
 		// save the game to the database
 		await game.save();
+
+		// tell each player what cards they have
+		for(const player of game.players){
+			if(player._id === newRound.cardCzar?._id){
+				Websocket.sendUserCards(player._id, []);
+			} else{
+				Websocket.sendUserCards(player._id, player.cards);
+			}
+		}
+
+		// inform everyone of the new round
+		Websocket.sendRoundStart(gameCode, {
+			blackCard: newRound.blackCard,
+			cardCzar: newRound.cardCzar?._id,
+			round: game.round,
+			players: game.players?.map(player => player._id)
+		});
 
 		return res.status(200).json({
 			success: true

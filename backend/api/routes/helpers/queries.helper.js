@@ -17,13 +17,26 @@ const insertGame = async (creator, code, deck, gameLength) => {
 			points: 0,
 			cards: [],
 			answers: []
-		}]
+		}],
+		rounds: []
 	}).save();
 
 	return game;
 };
 
+const checkGamesForUserId = async (userId) => {
+	const games = await Game.findOne({
+		'players._id': userId,
+		status: {
+			$ne: 'finished'
+		}
+	});
+
+	return games;
+};
+
 module.exports = {
 	findGame,
-	insertGame
+	insertGame,
+	checkGamesForUserId
 };

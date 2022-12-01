@@ -1,6 +1,9 @@
 # uno-it-innovation-board-game
 “Cards against humanity” style card game with cybersecurity and bioinformatics style cards
 
+## API Documentation
+https://documenter.getpostman.com/view/12460638/2s8Yt1tqQf
+
 ## Authentication
 - Users enter a game code when they first visit the website.
 - The route /game/join is posted which will validate the game code and assign the user a UUIDv4 which will be stored in a JWT cookie.
