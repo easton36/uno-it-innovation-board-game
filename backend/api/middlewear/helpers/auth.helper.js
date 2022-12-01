@@ -1,15 +1,7 @@
 const tokenExtractor = (req) => {
-	const authCookie = req.cookies.token;
-	if(authCookie){
-		return authCookie;
-	}
+	const token = req.cookies?.token || req.get('Authorization')?.split(' ')[1];
 
-	const authHeader = req.get('authorization');
-	if(authHeader && authHeader.startsWith('Bearer ')){
-		return authHeader.split(' ')[1];
-	}
-
-	return null;
+	return token;
 };
 
 module.exports = {

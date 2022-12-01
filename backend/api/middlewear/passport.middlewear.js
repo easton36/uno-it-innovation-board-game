@@ -12,10 +12,9 @@ const JWT_PARAMS = {
 
 passport.use(new JWTStrategy(JWT_PARAMS, async (jwtPayload, done) => {
 	try{
-		assert(Date.now() <= jwtPayload.expiration, 'UnauthorizedError');
-
 		return done(null, {
-			...jwtPayload
+			...jwtPayload,
+			id: jwtPayload.userId
 		});
 	} catch(err){
 		done(err);

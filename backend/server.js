@@ -22,8 +22,8 @@ const app = express();
 
 // initialize http server with express
 const server = http.createServer(app);
-server.listen(process.env.PORT, () => {
-	console.log(`[SERVER] Listening on port ${process.env.PORT}`);
+server.listen(process.env.PORT || 3000, () => {
+	console.log(`[SERVER] Listening on port ${process.env.PORT || 3000}`);
 });
 
 // intialize websocket server with http server
@@ -31,9 +31,11 @@ require('./websocket/websocket.manager').initialize(server);
 
 app.use(cors({
 	exposedHeaders: 'Authorization',
-	credentials: true
+	credentials: true,
+	origin: ['http://127.0.0.1:5173', 'http://localhost:5173']
 }));
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 // api routes
 app.use('/api', ApiRoutes);
