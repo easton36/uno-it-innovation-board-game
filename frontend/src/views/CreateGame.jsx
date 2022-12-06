@@ -11,7 +11,7 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 import { CREATE_GAME } from '../api/fetch';
 
-const CreateGame = ({ setActiveGame }) => {
+const CreateGame = ({ gameCreated }) => {
 	const navigate = useNavigate();
 
 	const [toast, setToast] = useState({
@@ -35,7 +35,7 @@ const CreateGame = ({ setActiveGame }) => {
 		if(![5, 10, 15].includes(gameLength)){
 			return openToast('error', 'Please select a valid game length');
 		}
-		if(!['all', 'cybersecurity', 'bioinformatics',].includes(gameDeck)){
+		if(!['base', 'cybersecurity', 'bioinformatics',].includes(gameDeck)){
 			return openToast('error', 'Please select a valid game deck');
 		}
 
@@ -47,13 +47,12 @@ const CreateGame = ({ setActiveGame }) => {
 			return openToast('error', response.message || 'An error occurred');
 		}
 
-		setActiveGame(response.data);
+		gameCreated(response.data);
 
 		setGameLength('');
 		setGameDeck('');
 
 		openToast('success', 'Game created successfully');
-		alert(JSON.stringify(response.data));
 
 		return navigate(`/game`);
 	};
@@ -91,7 +90,7 @@ const CreateGame = ({ setActiveGame }) => {
 							onChange={(e) => {
 								setGameDeck(e.target.value);
 							}}>
-							<MenuItem value={'all'}>All</MenuItem>
+							<MenuItem value={'base'}>Base</MenuItem>
 							<MenuItem value={'cybersecurity'}>Cybersecurity</MenuItem>
 							<MenuItem value={'bioinformatics'}>Bioinformatics</MenuItem>
 						</Select>

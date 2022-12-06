@@ -11,7 +11,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { JOIN_GAME } from '../api/fetch';
 
-const JoinGame = ({ setActiveGame }) => {
+const JoinGame = ({ gameJoined }) => {
 	const navigate = useNavigate();
 
 	const [toast, setToast] = useState({
@@ -37,12 +37,11 @@ const JoinGame = ({ setActiveGame }) => {
 			return openToast('error', response.message || 'An error occurred');
 		}
 
-		setActiveGame(response.data);
+		gameJoined(response.data);
 
 		setGameCode('');
 
 		openToast('success', 'Game joined successfully');
-		alert(JSON.stringify(response.data));
 
 		return navigate(`/game`);
 	};

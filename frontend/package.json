@@ -16,11 +16,13 @@
     "@mui/material": "^5.10.16",
     "@mui/styled-engine-sc": "^5.10.16",
     "axios": "^1.2.0",
+    "js-cookie": "^3.0.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.4",
+    "react-toastify": "^9.1.1",
     "socket.io-client": "^4.5.4",
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.6"
@@ -29,6 +31,9 @@
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4",
     "vite": "^3.2.3"
   }
 }

@@ -42,16 +42,18 @@ const initialize = (server) => {
 	console.log('[WEBSOCKET] Initialized');
 };
 
-const joinRoom = (userId, roomName) => {
-	if(connections[userId]){
-		connections[userId].forEach((socketId) => {
+const joinRoom = (user, roomName) => {
+	if(connections[user.id]){
+		connections[user.id].forEach((socketId) => {
 			io.sockets.sockets.get(socketId)?.join(roomName);
 		});
 	}
 
 	// announce to room that user has joined
 	io.to(roomName).emit('game:user:join', {
-		userId,
+		id: roomName,
+		userId: user.id,
+		name: user.name,
 		timestamp: Date.now()
 	});
 
@@ -67,6 +69,7 @@ const leaveRoom = (userId, roomName) => {
 
 	// announce to room that user has left
 	io.to(roomName).emit('game:user:leave', {
+		id: roomName,
 		userId,
 		timestamp: Date.now()
 	});
@@ -97,7 +100,10 @@ const sendUserCards = (userId, cards) => {
 
 	connections[userId].forEach((socketId) => {
 		io.to(socketId).emit('game:user:cards', {
-			cards,
+			cards: cards.map(card => ({
+				...card,
+				id: card._id
+			})),
 			cardCzar: cards.length === 0,
 			timestamp: Date.now()
 		});
@@ -107,16 +113,129 @@ const sendUserCards = (userId, cards) => {
 };
 
 const sendRoundStart = (roomName, {
-	blackCard,
+	questionCard,
 	cardCzar,
 	round,
 	players
 }) => {
 	io.to(roomName).emit('game:round:start', {
-		blackCard,
+		id: roomName, // game code
+		questionCard: {
+			...questionCard,
+			id: questionCard._id
+		},
 		cardCzar,
 		round,
 		players,
+		timestamp: Date.now()
+	});
+
+	return true;
+};
+
+const sendRoundCardPicked = (roomName, {
+	round,
+	card,
+	cardCzar
+}) => {
+	io.to(roomName).emit('game:round:picked', {
+		id: roomName, // game code
+		round,
+		card: {
+			...card,
+			id: card._id
+		},
+		cardCzar,
+		timestamp: Date.now()
+	});
+
+	return true;
+};
+
+const sendCardPicked = (roomName, user) => {
+	io.to(roomName).emit('game:user:picked', {
+		id: roomName, // game code
+		userId: user.id,
+		name: user.name,
+		timestamp: Date.now()
+	});
+
+	return true;
+};
+
+const sendCardCzarCard = (roomName, cardCzar, {
+	userId,
+	card
+}) => {
+	if(!connections[cardCzar]) return false;
+
+	connections[cardCzar].forEach((socketId) => {
+		io.to(socketId).emit('game:round:card', {
+			userId,
+			card: {
+				...card,
+				id: card._id
+			},
+			timestamp: Date.now()
+		});
+	});
+
+	return true;
+};
+
+const sendRoundEnd = (roomName, {
+	round,
+	questionCard,
+	cardCzar,
+	answers
+}) => {
+	io.to(roomName).emit('game:round:end', {
+		id: roomName, // game code
+		round,
+		questionCard: {
+			...questionCard,
+			id: questionCard._id
+		},
+		cardCzar,
+		answers: answers.map(answer => ({
+			...answer,
+			id: answer._id
+		})),
+		timestamp: Date.now()
+	});
+
+	return true;
+};
+
+const sendRoundWinnerPicked = (roomName, {
+	round,
+	winner,
+	winningCard
+}) => {
+	io.to(roomName).emit('game:round:winner', {
+		id: roomName, // game code
+		round,
+		winner,
+		winningCard: {
+			...winningCard,
+			id: winningCard._id
+		},
+		timestamp: Date.now()
+	});
+
+	return true;
+};
+
+const sendGameEnd = (roomName, {
+	rounds,
+	players,
+	winner
+}) => {
+	io.to(roomName).emit('game:end', {
+		id: roomName, // game code
+		rounds,
+		players,
+		winner,
 		timestamp: Date.now()
 	});
 
@@ -129,5 +248,11 @@ module.exports = {
 	leaveRoom,
 	getUserRooms,
 	sendUserCards,
-	sendRoundStart
+	sendRoundStart,
+	sendRoundCardPicked,
+	sendCardPicked,
+	sendRoundEnd,
+	sendRoundWinnerPicked,
+	sendGameEnd,
+	sendCardCzarCard
 };

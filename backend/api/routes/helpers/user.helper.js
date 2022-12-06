@@ -11,14 +11,15 @@ const validateToken = async (token) => {
 	}
 };
 
-const generateToken = async () => {
+const generateToken = async (name) => {
 	const userId = uuid();
 
-	const token = jwt.sign({ userId }, process.env.JWT_SECRET);
+	const token = jwt.sign({ userId, name }, process.env.JWT_SECRET);
 
 	return {
 		token,
-		userId
+		userId,
+		name
 	};
 };
 

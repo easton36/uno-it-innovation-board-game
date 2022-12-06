@@ -9,15 +9,11 @@ const findGame = async (code) => {
 const insertGame = async (creator, code, deck, gameLength) => {
 	const game = await new Game({
 		_id: code,
+		code,
 		deck,
-		creator,
+		creator: creator.id,
 		gameLength,
-		players: [{
-			_id: creator,
-			points: 0,
-			cards: [],
-			answers: []
-		}],
+		players: [{ _id: creator.id, name: creator.name }],
 		rounds: []
 	}).save();
 

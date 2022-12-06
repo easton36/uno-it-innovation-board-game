@@ -1,3 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 a{
 	text-decoration: none;
+}
+
+html, body, #root{
+	height: 100%;
+	max-width: 100%;
+	margin: 0;
+    padding: 0;
+	overflow-x: hidden;
+	overflow-y:hidden;
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }

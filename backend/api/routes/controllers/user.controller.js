@@ -11,7 +11,7 @@ const initializeUser = async (req, res, next) => {
 		let validToken;
 		let userToken;
 		let userId;
-
+		let userName;
 		let activeGame;
 
 		if(token){ // if a token is provided, validate it
@@ -20,24 +20,31 @@ const initializeUser = async (req, res, next) => {
 			if(validToken){ // if the user already has a valid token, use it
 				userToken = token;
 				userId = validToken.userId;
+				userName = validToken.name;
 
 				// check if the user is in any active games
 				const userGame = await checkGamesForUserId(userId);
 				if(userGame){
-					activeGame = {
-						code: userGame.code,
-						status: userGame.status,
-						players: userGame.players?.map(player => player._id),
-						deck: userGame.deck
-					};
+					activeGame = userGame.code;
+
 					// if the user is in an active game, join the game's websocket room
-					Websocket.joinRoom(userId, userGame._id);
+					Websocket.joinRoom({
+						id: userId,
+						name: userName
+					}, userGame.code);
 				}
 			}
 		}
 
 		if(!token || !validToken){ // generate the user a new token if they don't have one or if their token is invalid
-			const { token, userId: tokenUserId } = await generateToken();
+			const { name } = req.query;
+
+			assert(name, 'Please provide a name');
+			assert(name.length <= 20, 'Name must be less than 20 characters');
+			// name must be alphanumeric
+			assert(name.match(/^[a-zA-Z0-9]+$/), 'Name must be alphanumeric');
+
+			const { token, userId: tokenUserId } = await generateToken(name);
 
 			userToken = token;
 			userId = tokenUserId;
@@ -52,6 +59,7 @@ const initializeUser = async (req, res, next) => {
 			success: true,
 			token: userToken,
 			userId,
+			name: userName,
 			activeGame
 		});
 	} catch(err){

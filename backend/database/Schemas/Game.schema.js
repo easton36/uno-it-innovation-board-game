@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const Card = new mongoose.Schema({
-	deck: { // black or white
+	_id: { // card id
+		type: String,
+		required: true
+	},
+	deck: { // The deck the card belongs to
 		type: String,
 		required: true
 	},
@@ -9,7 +13,7 @@ const Card = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	owner: { // sometimes cards are owned by a user
+	owner: { // sometimes cards are owned by a user, this is the user id
 		type: String,
 		required: false
 	}
@@ -20,20 +24,29 @@ const Player = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	name: {
+		type: String,
+		required: true
+	},
+	status: { // player status, can be 'playing', 'disconnected'
+		type: String,
+		required: true,
+		default: 'playing'
+	},
 	cardCzar: { // is this player the card czar
 		type: Boolean,
 		required: true,
 		default: false
 	},
-	points: {
+	points: { // the player points
 		type: Number,
 		default: 0
 	},
-	answer: {
+	pickedCard: { // the card the user picked for this round
 		type: Card,
 		default: null
 	},
-	cards: {
+	cards: { // what cards the user has for this round
 		type: [Card],
 		default: []
 	}
@@ -42,7 +55,7 @@ const Player = new mongoose.Schema({
 const Round = new mongoose.Schema({
 	status: {
 		type: String,
-		default: 'czar_choosing_card', // current round status. can be 'czar_choosing_card', 'players_choosing_cards', 'czar_choosing_winner', 'finished'
+		default: 'players_choosing_cards', // current round status. can be 'players_choosing_cards', 'czar_choosing_winner', 'finished'
 		required: true
 	},
 	cardCzar: { // user id of card czar for this round
@@ -50,18 +63,21 @@ const Round = new mongoose.Schema({
 		required: true,
 		default: null
 	},
-	currentRound: { // current round number
+	round: { // current round number
 		type: Number,
-		default: 0,
 		required: true
 	},
-	blackCard: {
+	questionCard: {
 		type: Card,
 		required: true,
 		default: null
 	},
 	winner: { // user id of winner
 		type: String,
+		default: null
+	},
+	winningCard: { // the card that won
+		type: Card,
 		default: null
 	},
 	answers: { // answers for this round
@@ -77,6 +93,10 @@ module.exports = mongoose.model('Game', new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	code: { // this is the game code
+		type: String,
+		required: true
+	},
 	status: { // current game status. can be 'waiting_for_players', 'in_progress', 'finished'
 		type: String,
 		required: true,
@@ -89,7 +109,8 @@ module.exports = mongoose.model('Game', new mongoose.Schema({
 	},
 	deck: {
 		type: String,
-		required: true
+		required: true,
+		default: 'base'
 	},
 	creator: { // user id of the creator
 		type: String,
@@ -99,9 +120,15 @@ module.exports = mongoose.model('Game', new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-	players: [Player],
-	rounds: [Round],
-	previousBlackCards: { // previous black cards
+	players: {
+		type: [Player],
+		default: []
+	},
+	rounds: {
+		type: [Round],
+		default: []
+	},
+	previousQuestionCards: { // previous black cards
 		type: [Card],
 		default: [],
 		required: true
