@@ -1,6 +1,9 @@
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://192.168.1.121:3000/api';
+
+// sometimes we use localStorage instead of cookies because of CSRF stuff
+// on production site that shouldn't be an issue
 
 export const INITIATE_USER = async (name) => {
 	const response = await fetch(`${API_URL}/user${name ? `?name=${name}` : ''}`, {

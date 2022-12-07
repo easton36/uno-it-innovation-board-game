@@ -43,10 +43,23 @@ module.exports = {
 			cardHover: '-8%'
 		},
 		colors: {
-			green: '#5cb85c'
+			green: '#5cb85c',
+			blurple: '#3f50b5',
+			offWhite: '#FAF9F6'
 		},
 		transitionProperty: {
 			'spacing': 'margin, padding, bottom, left, right',
+		},
+		spacing: {
+			answerCardHeight: '180px',
+			answerCardHeightXL: '200px',
+			questionCardHeight: '240px',
+			questionCardHeightXL: '275px',
+
+			answerCardWidth: '165px',
+			answerCardWidthXL: '145px',
+			questionCardWidth: '200px',
+			questionCardWidthXL: '215px',
 		}
 	},
   },

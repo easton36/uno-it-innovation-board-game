@@ -30,17 +30,20 @@ const fetchGame = async (req, res, next) => {
 			roundStatus: game?.rounds[game.round - 1]?.status,
 			cardCzar: game?.rounds[game.round - 1]?.cardCzar,
 			questionCard: {
-				...game?.rounds[game.round - 1]?.questionCard,
+				...game?.rounds[game.round - 1]?.questionCard._doc,
 				id: game?.rounds[game.round - 1]?.questionCard?._id
 			},
 			cards: game.players?.find(player => player._id === req.user?.id).cards?.map(card => ({
-				...card,
+				...card._doc,
 				id: card._id
 			}))
 		};
 
-		if(game.rounds[game.round - 1].cardCzar === req.user.id){
-			gameData.answers = game.rounds[game.round - 1].answers;
+		if(game.rounds[game.round - 1]?.cardCzar === req.user.id){
+			gameData.answers = game.rounds[game.round - 1]?.answers?.map(card => ({
+				...card._doc,
+				id: card._id
+			}));
 		}
 
 		return res.status(200).json({
@@ -304,7 +307,8 @@ const pickCard = async (req, res, next) => {
 				round: game.round,
 				questionCard: round.questionCard,
 				cardCzar: round.cardCzar,
-				answers: round.answers.map(answer => ({
+				answers: round.answers?.map(answer => ({
+					...answer._doc,
 					id: answer._id,
 					owner: answer.owner,
 					text: answer.text,
@@ -372,7 +376,7 @@ const pickWinner = async (req, res, next) => {
 		Websocket.sendRoundWinnerPicked(gameCode, {
 			round: game.round,
 			winner: winner._id,
-			winningCard: game.rounds[game.round - 1].winningCard
+			winningCard: game.rounds[game.round - 1].winningCard._doc
 		});
 
 		// check if the game is over

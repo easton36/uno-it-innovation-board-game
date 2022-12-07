@@ -21,7 +21,9 @@ const GameNav = ({ activeGame, isCreator }) => {
 	};
 
 	return (
-		<div className="w-full bg-white border-b-4 border-b-black flex flex-row justify-between items-center px-6 py-4 z-20">
+		<div className="w-full bg-white border-b-4 border-b-black flex flex-row justify-between items-center px-6 py-4 z-20" style={{
+			height: '60px'
+		}}>
 			<p className="font-bold text-20">Cards Against Humanity</p>
 
 			<div className="absolute flex flex-row items-center justify-center gap-3" style={{

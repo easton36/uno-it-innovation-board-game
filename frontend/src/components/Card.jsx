@@ -28,16 +28,13 @@ const Card = ({ card: cardProp, selected: selectedProp, selectCard: selectCardPr
 	});
 
 	return (
-        <div className={`select-none relative border-4 ${selected ? 'border-green translate-y-cardHover' : 'border-black'} ${card.type === 'answer' ? 'bg-white text-black' : 'bg-black text-white'} py-2 z-40 flex flex-col items-start cursor-pointer transition transform duration-300 ${face === 'front' && 'hover:translate-y-cardHover'}`} style={{
-			height: card.type === 'answer' ? '200px' : '275px',
-			width: card.type === 'answer' ? '145px' : '200px',
-			minWidth: card.type === 'answer' ? '145px' : '200px',
-			minHeight: card.type === 'answer' ? '200px' : '275px',
+        <div className={`select-none relative border-4 ${selected ? 'border-green translate-y-cardHover' : 'border-black'} ${card.type === 'answer' ? 'bg-white text-black h-answerCardHeight xl:h-answerCardHeightXL w-answerCardWidth xl:w-answerCardWidthXL' : 'bg-black text-white h-questionCardHeight xl:h-questionCardHeightXL w-questionCardWidth xl:w-questionCardWidthXL'} py-2 z-40 flex flex-col items-start cursor-pointer transition transform duration-300 ${face === 'front' && 'hover:translate-y-cardHover'}`} style={{
 			borderRadius: '12px',
-			filter: 'drop-shadow(6px 6px 0 #000)'
+			filter: 'drop-shadow(6px 6px 0 #000)',
+			minWidth: '165px'
 		}} onClick={selectCard}>
 			<p className={`font-bold ${face === 'front' ? 'text-18' : 'text-30'} px-2.5`} style={{
-				marginTop: '20%'
+				marginTop: '10%'
 			}}>{cardText}</p>
 
 			{face === 'front' && (

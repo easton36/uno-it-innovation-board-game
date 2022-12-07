@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,7 +24,7 @@ const theme = createTheme({
 	}
 });
 
-const socket = io('http://localhost:3000', {
+const socket = io('http://192.168.1.121:3000', {
 	extraHeaders: {
 		Authorization: `Bearer ${localStorage.getItem('token')}`
 	}
@@ -47,14 +47,14 @@ const App = () => {
 	const [questionCard, setQuestionCard] = useState();
 	const [userCards, setUserCards] = useState([]);
 
-	const sessionToken = useMemo(() => Cookies.get('token') || localStorage.getItem('token'), []);
+	const sessionToken = useMemo(() => Cookies.get('token') || localStorage.getItem('token'), [user]);
 
 	const initiateUser = async (name) => {
 		if(!sessionToken && !name) return;
 
 		const response = await INITIATE_USER(name);
 	
-		if(!response.success) return
+		if(!response.success) return toast.error(response.message || 'An error has occurred');
 
 		localStorage.setItem('token', response.token);
 		setUser(response.userId);
@@ -123,6 +123,7 @@ const App = () => {
 				name: data.name,
 				userId: data.userId,
 				message: 'joined the game!',
+				timestamp: Date.now()
 			}]);
 		});
 
@@ -133,6 +134,7 @@ const App = () => {
 				name: data.name,
 				userId: data.userId,
 				message: 'left the game.',
+				timestamp: Date.now()
 			}]);
 
 			console.log('game:user:leave', data);
@@ -145,6 +147,7 @@ const App = () => {
 				name: `Round ${data.round}`,
 				questionCard: data.questionCard,
 				message: 'has started!',
+				timestamp: Date.now()
 			}]);
 
 			setGameFeed(prev => [...prev, {
@@ -152,6 +155,7 @@ const App = () => {
 				name: data.cardCzar,
 				nameIsId: true,
 				message: 'is the Card Czar!',
+				timestamp: Date.now()
 			}]);
 
 			setQuestionCard(data.questionCard);
@@ -177,6 +181,7 @@ const App = () => {
 				name: `Everyone`,
 				cards: data.cards,
 				message: 'has received new cards!',
+				timestamp: Date.now()
 			}]);
 
 			setUserCards(data.cards);
@@ -189,6 +194,7 @@ const App = () => {
 				event: 'game:user:picked',
 				name: `${data.name}`,
 				message: 'picked their answer.',
+				timestamp: Date.now(),
 				userId: data.userId
 			}]);
 
@@ -216,6 +222,7 @@ const App = () => {
 			setGameFeed(prev => [...prev, {
 				event: 'round',
 				message: 'The round has ended! All of the answers have been displayed. The Card Czar will now pick the winner!',
+				timestamp: Date.now()
 			}]);
 
 			setUserCards(data.answers);
@@ -230,6 +237,13 @@ const App = () => {
 				name: data.winner,
 				nameIsId: true,
 				message: 'is the round winner!',
+				timestamp: Date.now()
+			}]);
+
+			setGameFeed(prev => [...prev, {
+				event: 'game:round:winner',
+				message: 'Waiting for the game creator to start the next round...',
+				timestamp: Date.now()
 			}]);
 
 			setQuestionCard(prev => ({
@@ -271,8 +285,14 @@ const App = () => {
 		<ThemeProvider theme={theme}>
 			<Router>
 				<Routes>
-					<Route path="/" element={<Main activeGame={activeGame} initiateUser={initiateUser} sessionToken={sessionToken} />} />
-					<Route path="/create-game" element={<CreateGame gameCreated={gameCreated} />} />
+					<Route path="/" element={<Main
+						activeGame={activeGame}
+						initiateUser={initiateUser}
+						sessionToken={sessionToken}
+						gameCreated={gameCreated}
+						gameJoined={gameJoined}
+					/>} />
+					<Route path="/create-game" element={<CreateGame  />} />
 					<Route path="/join-game" element={<JoinGame gameJoined={gameJoined} />} />
 					<Route path="/game" element={<Game 
 						activeGame={activeGame}
