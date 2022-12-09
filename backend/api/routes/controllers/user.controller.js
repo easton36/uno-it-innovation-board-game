@@ -26,12 +26,6 @@ const initializeUser = async (req, res, next) => {
 				const userGame = await checkGamesForUserId(userId);
 				if(userGame){
 					activeGame = userGame.code;
-
-					// if the user is in an active game, join the game's websocket room
-					Websocket.joinRoom({
-						id: userId,
-						name: userName
-					}, userGame.code);
 				}
 			}
 		}

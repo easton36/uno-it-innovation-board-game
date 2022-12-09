@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import Button from '@mui/material/Button';
 
 import  { START_ROUND } from '../api/fetch';
 
-const GameNav = ({ activeGame, isCreator }) => {
+const GameNav = ({ activeGame, isCreator, toggleModal }) => {
 	const [round, setRound] = useState(activeGame?.round);
 	const [gameCode, setGameCode] = useState(activeGame?.code);
 
@@ -21,24 +22,34 @@ const GameNav = ({ activeGame, isCreator }) => {
 	};
 
 	return (
-		<div className="w-full bg-white border-b-4 border-b-black flex flex-row justify-between items-center px-6 py-4 z-20" style={{
-			height: '60px'
+		<div className="nav bg-navBg flex flex-row w-full justify-between items-center px-10 py-2 z-20" style={{
+			height: '60px',
+			boxShadow: '#0003 0 4px 6px -1px, #0000001f 0 2px 4px -1px'
 		}}>
-			<p className="font-bold text-20">Cards Against Humanity</p>
+			<p className="font-bold text-18 text-white">Cards Against Humanity</p>
 
-			<div className="absolute flex flex-row items-center justify-center gap-3" style={{
+			<div className="absolute flex flex-row items-center justify-center gap-5" style={{
 				left: '50%',
 				transform: 'translateX(-50%)',
 			}}>
-				<p className="font-bold text-20">{gameCode}</p>
-				<p className="font-bold text-20">{round === 0 ? 'Waiting for game to start...' : `Round ${round}`}</p>
+				<p className="font-bold text-20 text-white cursor-pointer" onClick={() => {
+					navigator.clipboard.writeText(gameCode);
+					toast.success('Game code copied to clipboard!');
+				}}>{gameCode}</p>
+				<p className="font-bold text-20 text-white">{round === 0 ? 'Waiting for game to start...' : `Round ${round}`}</p>
 			</div>
 
-			{isCreator && (
-				<div className="bg-black text-white hover:bg-white hover:text-black transition-colors border-4 border-black rounded-6 py-1 px-5 cursor-pointer flex flex-row items-center" onClick={startRound}>
-					<p className="font-bold text-16">Start {round === 0 ? 'Game' : 'Next Round'}</p>
-				</div>
-			)}
+			<div className="flex flex-row gap-2">
+				<Button variant="contained" sx={{ fontSize: 14, mt: 0, height: '100%' }} color="primary" onClick={toggleModal}>
+					Game Information
+				</Button>
+
+				{isCreator && (
+					<Button variant="contained" sx={{ fontSize: 14, mt: 0, height: '100%' }} color="primary" onClick={startRound}>
+						Start {round === 0 ? 'Game' : 'Next Round'}
+					</Button>
+				)}
+			</div>
 		</div>
 	);
 };

@@ -36,6 +36,15 @@ const fetchGame = async (req, res, next) => {
 			cards: game.players?.find(player => player._id === req.user?.id).cards?.map(card => ({
 				...card._doc,
 				id: card._id
+			})),
+			rounds: game.rounds?.map(round => ({
+				id: round._id,
+				cardCzar: round.cardCzar,
+				round: round.round,
+				questionCard: round.questionCard,
+				winner: round.winner,
+				winningCard: round.winningCard,
+				answers: round.answers
 			}))
 		};
 
@@ -45,6 +54,9 @@ const fetchGame = async (req, res, next) => {
 				id: card._id
 			}));
 		}
+
+		// join the game's websocket room
+		Websocket.joinRoom(req.user, gameCode);
 
 		return res.status(200).json({
 			success: true,
@@ -98,7 +110,7 @@ const joinGame = async (req, res, next) => {
 		await game.save();
 
 		// join user to websocket room
-		Websocket.joinRoom(req.user, code);
+		Websocket.joinRoom(req.user, code, true);
 
 		return res.status(200).json({
 			success: true,
@@ -110,7 +122,8 @@ const joinGame = async (req, res, next) => {
 				players: game.players?.map(mapGamePlayers),
 				deck: game.deck,
 				round: game.round,
-				user: game.players.find(player => player._id === req.user.id)
+				user: game.players.find(player => player._id === req.user.id),
+				rounds: []
 			}
 		});
 	} catch(err){ // all assertion errors are caught here and passed to the error handler
@@ -139,7 +152,9 @@ const createGame = async (req, res, next) => {
 		assert(game, 'Failed to create game');
 
 		// join user to websocket room
-		Websocket.joinRoom(req.user, gameCode);
+		Websocket.joinRoom(req.user, gameCode, true);
+
+		console.log(`[GAME] ${req.user.id} created a game: ${gameCode}`);
 
 		return res.status(200).json({
 			success: true,
@@ -150,7 +165,8 @@ const createGame = async (req, res, next) => {
 				creator: game.creator,
 				players: game.players?.map(mapGamePlayers),
 				deck: game.deck,
-				round: game.round
+				round: game.round,
+				rounds: []
 			}
 		});
 	} catch(err){
@@ -169,12 +185,13 @@ const startGame = async (req, res, next) => {
 
 		// only the game creator can start the game
 		assert(game.creator === req.user.id, 'You are not the creator of this game!');
+		// the game must have at least 3 players
+		assert(game.players?.length >= 3, 'Game must have at least 3 players to start!');
+		assert(game.status !== 'finished', 'This game has already finished!');
 		if(game.status === 'in_progress'){
 			// the game current round cannot have already started
 			assert(game.rounds[game.round - 1]?.status === 'finished', 'Wait until the previous round has finished!');
 		}
-		// the game must have at least 3 players
-		assert(game.players?.length >= 3, 'Game must have at least 3 players to start!');
 
 		const {
 			round,
@@ -200,6 +217,8 @@ const startGame = async (req, res, next) => {
 			round,
 			players: game.players?.map(player => player._id)
 		});
+
+		console.log(`[GAME] ${req.user.id} joined game ${gameCode}`);
 
 		return res.status(200).json({
 			success: true
@@ -233,27 +252,16 @@ const pickCard = async (req, res, next) => {
 		assert(round.cardCzar !== req.user.id, 'You cannot pick an answer!');
 
 		// fetch card from database / make sure it exists
-		// const card = round.cardCzar === req.user.id ? validateQuestionCard(cardId, game.deck) : validateAnswerCard(cardId, game.deck);
 		const card = validateAnswerCard(cardId, game.deck);
 		assert(card, 'Invalid card!');
 
 		// check if player is allowed to pick a card
-		/* if(round.cardCzar === req.user.id){
-			assert(round.status === 'czar_choosing_card', 'You can\'t pick a card right now!');
-			// make sure a card has not already been picked
-			assert(!round.questionCard, 'You have already picked a card!');
-		} else{ */
 		assert(round.status === 'players_choosing_cards', 'You can\'t pick a card right now!');
 		// make sure the user has not already picked a card
 		assert(!round.answers?.find(answer => answer.owner === req.user.id), 'You have already picked a card!');
 		// make sure the card is in the user's hand
 		assert(player?.cards?.find(card => card._id === cardId), 'You don\'t have that card!');
-		// }
 
-		// pick the card
-		/* if(round.cardCzar === req.user.id){
-			game.rounds[game.round - 1].questionCard = card;
-		} else{ */
 		const formattedCard = {
 			...card,
 			owner: req.user.id
@@ -264,19 +272,10 @@ const pickCard = async (req, res, next) => {
 		const playerIndex = game.players?.findIndex(player => player._id === req.user.id);
 		game.players[playerIndex].pickedCard = formattedCard;
 		game.players[playerIndex].cards = game.players[playerIndex].cards?.filter(card => card._id !== cardId);
-		// }
-
-		/* if(round.cardCzar === req.user.id){
-			// if the card czar has picked a card, move to the next stage
-			game.rounds[game.round - 1].status = 'players_choosing_cards';
-		} */
 
 		// check if the user is the last one to pick a card, which means the round is over
-		console.log(game.players);
 		const players = game.players?.filter(player => player.cardCzar === false);
-		console.log(players);
 		const allPlayersPicked = players.every(player => player.pickedCard);
-		console.log(allPlayersPicked);
 		if(allPlayersPicked){
 			// update game status
 			game.rounds[game.round - 1].status = 'czar_choosing_winner';
@@ -285,14 +284,6 @@ const pickCard = async (req, res, next) => {
 		// update game in database
 		await game.save();
 
-		/* if(round.cardCzar === req.user.id){
-			// tell everyone what card was picked
-			Websocket.sendRoundCardPicked(gameCode, {
-				round: game.round,
-				card,
-				cardCzar: req.user.id
-			});
-		} else{ */
 		// announce that this players card has been picked
 		Websocket.sendCardPicked(gameCode, req.user);
 		// send what card the user picked to the card czar
@@ -316,7 +307,8 @@ const pickCard = async (req, res, next) => {
 				}))
 			});
 		}
-		// }
+
+		console.log(`[GAME] ${req.user.id} picked answer card ${cardId} for ${gameCode}`);
 
 		return res.status(200).json({
 			success: true,
@@ -410,6 +402,8 @@ const pickWinner = async (req, res, next) => {
 				winner: game.players?.find(player => player.points === game.players?.reduce((max, player) => Math.max(max, player.points), 0))
 			});
 		}
+
+		console.log(`[GAME] ${req.user.id} picked a winner ${userId} for game ${gameCode}`);
 
 		return res.status(200).json({
 			success: true,

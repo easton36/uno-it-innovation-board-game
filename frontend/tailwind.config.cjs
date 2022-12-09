@@ -43,12 +43,19 @@ module.exports = {
 			cardHover: '-8%'
 		},
 		colors: {
-			green: '#5cb85c',
+			primary: '#1475E1',
+			green: '#00e701',
 			blurple: '#3f50b5',
-			offWhite: '#FAF9F6'
+			offWhite: '#f7f7f7',
+			mainBg: '#0f212e',
+			secondaryBg: '#213743',
+			navBg: '#1a2c38',
+			footerBg: '#071d2a',
+
+			icon: '#557086'
 		},
 		transitionProperty: {
-			'spacing': 'margin, padding, bottom, left, right',
+			'spacing': 'margin, padding, bottom',
 		},
 		spacing: {
 			answerCardHeight: '180px',
@@ -57,7 +64,7 @@ module.exports = {
 			questionCardHeightXL: '275px',
 
 			answerCardWidth: '165px',
-			answerCardWidthXL: '145px',
+			answerCardWidthXL: '155px',
 			questionCardWidth: '200px',
 			questionCardWidthXL: '215px',
 		}

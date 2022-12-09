@@ -42,20 +42,22 @@ const initialize = (server) => {
 	console.log('[WEBSOCKET] Initialized');
 };
 
-const joinRoom = (user, roomName) => {
+const joinRoom = (user, roomName, announce) => {
 	if(connections[user.id]){
 		connections[user.id].forEach((socketId) => {
 			io.sockets.sockets.get(socketId)?.join(roomName);
 		});
 	}
 
-	// announce to room that user has joined
-	io.to(roomName).emit('game:user:join', {
-		id: roomName,
-		userId: user.id,
-		name: user.name,
-		timestamp: Date.now()
-	});
+	if(announce){
+		// announce to room that user has joined
+		io.to(roomName).emit('game:user:join', {
+			id: roomName,
+			userId: user.id,
+			name: user.name,
+			timestamp: Date.now()
+		});
+	}
 
 	return true;
 };
@@ -210,12 +212,14 @@ const sendRoundEnd = (roomName, {
 const sendRoundWinnerPicked = (roomName, {
 	round,
 	winner,
+	points = 5,
 	winningCard
 }) => {
 	io.to(roomName).emit('game:round:winner', {
 		id: roomName, // game code
 		round,
 		winner,
+		points,
 		winningCard: {
 			...winningCard,
 			id: winningCard._id

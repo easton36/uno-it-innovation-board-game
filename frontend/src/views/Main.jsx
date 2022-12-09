@@ -1,11 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import { TextField, InputLabel } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import { toast } from 'react-toastify';
@@ -90,12 +87,15 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 	};
 
 	return (
-		<div className="w-full h-full flex flex-col items-center justify-center">
+		<div className="w-full h-full flex flex-col items-center justify-center bg-mainBg">
 			<div className="max-w-4xl grid grid-cols-2 bg-white rounded-12 mt-10" style={{
-				boxShadow: '0 0 5px #000',
+				boxShadow: '0 0 40px #161616',
 				transform: 'translateY(-5%)'
 			}}>
-				<div className="h-full bg-blurple rounded-tl-12 rounded-bl-12 px-12 py-12 flex-1 flex flex-col items-center justify-center">
+				<div className="h-full bg-primary rounded-tl-12 rounded-bl-12 px-12 py-12 flex-1 flex flex-col items-center justify-center" style={{
+					height: 'calc(100% + 2px)',
+					marginTop: '-1px'
+				}}>
 					<p className="font-semibold text-16 text-white mb-4">How to Play:</p>
 					<div className="flex flex-row items-start mb-2">
 						<p className="font-bold text-14 text-white pr-2">1.</p>
@@ -114,7 +114,10 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 						<p className="text-12 text-white leading-relaxed">Once all of the rounds have finished, the player who has the most points wins!</p>
 					</div>
 				</div>
-				<div className="relative h-full bg-white rounded-tr-12 rounded-br-12 px-12 py-12 flex flex-col items-center justify-center">
+				<div className="relative h-full bg-secondaryBg rounded-tr-12 rounded-br-12 px-12 py-12 flex flex-col items-center justify-center text-white" style={{
+					height: 'calc(100% + 2px)',
+					marginTop: '-1px'
+				}}>
 					<div className="absolute top-8 text-center w-full">
 						<p className="mb-0 text-22 font-semibold">Cards Against Humanity</p>
 						{/* <p className="-mt-1 text-14 font-normal">{subTitle}</p> */}
@@ -129,12 +132,7 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 											<p className="text-14 mb-2">You already are in an active game!</p>
 
 											<Link to="/game">
-												<Button variant="contained" sx={{ mt: 0, py: 2, width: 250, fontSize: 16,
-													backgroundColor: '#3f50b5',
-													'&:hover': {
-														backgroundColor: '#757ce8'
-													}
-												}}>
+												<Button variant="contained" sx={{ mt: 0, py: 2, width: 250, fontSize: 16}} color="primary">
 													Resume Active Game
 												</Button>
 											</Link>
@@ -144,12 +142,7 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 									<div className="flex flex-col items-center">
 										<div className="flex flex-col items-center">
 											<p className="text-14 mb-2">Create a game for others to join</p>
-											<Button variant="contained" sx={{ width: 240, py: 2, fontSize: 16, mt: 0,
-												backgroundColor: '#3f50b5',
-												'&:hover': {
-													backgroundColor: '#757ce8'
-												}
-											}} onClick={() => setPage('create-game')}>
+											<Button variant="contained" sx={{ width: 240, py: 2, fontSize: 16, mt: 0}} color="primary" onClick={() => setPage('create-game')}>
 												Create Game
 											</Button>
 										</div>
@@ -158,12 +151,7 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 										
 										<div className="flex flex-col items-center">
 											<p className="text-14 mb-2">Join an existing game</p>
-											<Button fullWidth variant="contained" sx={{ width: 240, py: 2, fontSize: 16, mt: 0,
-												backgroundColor: '#3f50b5',
-												'&:hover': {
-													backgroundColor: '#757ce8'
-												}
-											}} onClick={() => setPage('join-game')}>
+											<Button fullWidth variant="contained" sx={{ width: 240, py: 2, fontSize: 16, mt: 0}} color="primary" onClick={() => setPage('join-game')}>
 												Join Game
 											</Button>
 										</div>
@@ -175,15 +163,13 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 								<p className="w-full mb-3 text-14">Please set your username to continue</p>
 								<TextField margin="normal" required fullWidth id="name" label="Username" name="name" autoFocus value={name} onChange={(e) => {
 									setName(e.target.value);
-								}} sx={{ mt: 0 }}/>
-
-								<Button type="submit" fullWidth variant="contained" sx={{ 
-									mt: 2, py: 1.25,
-									backgroundColor: '#3f50b5',
-									'&:hover': {
-										backgroundColor: '#757ce8'
+								}} sx={{ mt: 0 }} InputProps={{
+									sx: { 
+										color: 'white',
 									}
-								}} onClick={() => postName()}>
+								}}/>
+
+								<Button type="submit" fullWidth variant="contained" sx={{ mt: 2, py: 1.25}} color="primary" onClick={() => postName()}>
 									Set Username
 								</Button>
 							</>
@@ -194,11 +180,12 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 						<div className="mt-6">
 							<div className="flex flex-col gap-4">
 								<FormControl>
-									<InputLabel id="total-round-select-label">Total Rounds</InputLabel>
-									<Select labelId="total-round-select-label" id="total-round-select" value={gameLength} label="Total Rounds"
-										onChange={(e) => {
-											setGameLength(e.target.value);
-										}}>
+									<InputLabel id="total-round-select-label" sx={{ color: 'white' }}>Total Rounds</InputLabel>
+									<Select labelId="total-round-select-label" id="total-round-select" value={gameLength} label="Total Rounds" onChange={(e) => {
+										setGameLength(e.target.value);
+									}} sx={{
+										color: 'white',
+									}}>
 										<MenuItem value={5}>Five</MenuItem>
 										<MenuItem value={10}>Ten</MenuItem>
 										<MenuItem value={15}>Fifteen</MenuItem>
@@ -206,11 +193,12 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 								</FormControl>
 
 								<FormControl>
-									<InputLabel id="deck-select-label">Deck</InputLabel>
-									<Select labelId="deck-select-label" id="deck-select" value={gameDeck} label="Deck"
-										onChange={(e) => {
-											setGameDeck(e.target.value);
-										}}>
+									<InputLabel id="deck-select-label" sx={{ color: 'white' }}>Deck</InputLabel>
+									<Select labelId="deck-select-label" id="deck-select" value={gameDeck} label="Deck" onChange={(e) => {
+										setGameDeck(e.target.value);
+									}} sx={{
+										color: 'white',
+									}}>
 										<MenuItem value={'base'}>Base</MenuItem>
 										<MenuItem value={'cybersecurity'}>Cybersecurity</MenuItem>
 										<MenuItem value={'bioinformatics'}>Bioinformatics</MenuItem>
@@ -218,21 +206,11 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 								</FormControl>
 							</div>
 
-							<Button type="submit" fullWidth variant="contained" sx={{ mt: 2, py: 1.25,
-								backgroundColor: '#3f50b5',
-								'&:hover': {
-									backgroundColor: '#757ce8'
-								}
-							}} onClick={createGame}>
+							<Button type="submit" fullWidth variant="contained" sx={{ mt: 2, py: 1.25}} color="primary" onClick={createGame}>
 								Create Game
 							</Button>
 
-							<Button variant="text" color="primary" startIcon={<ArrowBackIcon />} sx={{ mt: 1,
-								color: '#3f50b5',
-								'&:hover': {
-									color: '#757ce8'
-								}
-							}} onClick={() => setPage('main')}>Go Back</Button>
+							<Button variant="text" color="primary" startIcon={<ArrowBackIcon />} sx={{ mt: 1 }} onClick={() => setPage('main')}>Go Back</Button>
 						</div>
 					)}
 
@@ -240,23 +218,17 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 						<div>
 							<TextField margin="normal" required fullWidth id="code" label="Game code" name="gameCode" autoFocus value={gameCode} onChange={(e) => {
 								setGameCode(e.target.value);
-							}} />
-
-							<Button type="submit" fullWidth variant="contained" sx={{ mt: 2, py: 1.25,
-								backgroundColor: '#3f50b5',
-								'&:hover': {
-									backgroundColor: '#757ce8'
+							}} InputProps={{
+								sx: { 
+									color: 'white',
 								}
-							}} onClick={joinGame}>
+							}} sx={{ color: 'white' }}/>
+
+							<Button type="submit" fullWidth variant="contained" sx={{ mt: 2, py: 1.25 }} color="primary" onClick={joinGame}>
 								Join Game
 							</Button>
 
-							<Button variant="text" color="primary" startIcon={<ArrowBackIcon />} sx={{ mt: 1,
-								color: '#3f50b5',
-								'&:hover': {
-									color: '#757ce8'
-								}
-							}} onClick={() => setPage('main')}>Go Back</Button>
+							<Button variant="text" color="primary" startIcon={<ArrowBackIcon />} sx={{ mt: 1 }} onClick={() => setPage('main')}>Go Back</Button>
 						</div>
 					)}
 				</div>

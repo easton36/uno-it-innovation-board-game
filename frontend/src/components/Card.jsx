@@ -24,14 +24,13 @@ const Card = ({ card: cardProp, selected: selectedProp, selectCard: selectCardPr
 			return card.text?.replaceAll('BLANK', '__________');
 		}
 
-		return card.text;
+		return card.text?.replace('..', '.');
 	});
 
 	return (
-        <div className={`select-none relative border-4 ${selected ? 'border-green translate-y-cardHover' : 'border-black'} ${card.type === 'answer' ? 'bg-white text-black h-answerCardHeight xl:h-answerCardHeightXL w-answerCardWidth xl:w-answerCardWidthXL' : 'bg-black text-white h-questionCardHeight xl:h-questionCardHeightXL w-questionCardWidth xl:w-questionCardWidthXL'} py-2 z-40 flex flex-col items-start cursor-pointer transition transform duration-300 ${face === 'front' && 'hover:translate-y-cardHover'}`} style={{
+        <div className={`select-none relative border-4 ${selected ? 'border-primary translate-y-cardHover' : 'border-black'} ${card.type === 'answer' ? 'bg-offWhite text-black h-answerCardHeight xl:h-answerCardHeightXL w-answerCardWidth xl:w-answerCardWidthXL' : 'bg-black text-white h-questionCardHeight xl:h-questionCardHeightXL w-questionCardWidth xl:w-questionCardWidthXL'} py-2 z-40 flex flex-col items-start cursor-pointer transition transform duration-300 ${face === 'front' && 'hover:translate-y-cardHover'}`} style={{
 			borderRadius: '12px',
-			filter: 'drop-shadow(6px 6px 0 #000)',
-			minWidth: '165px'
+			filter: 'drop-shadow(6px 6px 0 #000)'
 		}} onClick={selectCard}>
 			<p className={`font-bold ${face === 'front' ? 'text-18' : 'text-30'} px-2.5`} style={{
 				marginTop: '10%'

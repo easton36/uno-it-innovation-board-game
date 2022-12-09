@@ -15,6 +15,27 @@ html, body, #root{
 	overflow-y:hidden;
 }
 
+/* style the scrollbar */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #071d2a;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #2f4553;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -25,3 +46,37 @@ html, body, #root{
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+.game {
+	max-height: 100vh;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 0.6fr 1.4fr 1fr;
+	grid-template-rows: 60px 1fr auto;
+	gap: 0px 0px;
+	grid-template-areas:
+	  "nav nav nav"
+	  "sidebar game game"
+	  "cards cards cards";
+}
+
+.nav {
+	grid-area: nav; 
+	height: 60px; 
+}
+
+.cards {
+	display: grid; 
+	grid-auto-columns: 1fr; 
+	gap: 0px 0px; 
+	grid-area: cards;
+	min-height: 200px;
+}
+
+.sidebar{
+	display: flex;
+	flex-direction: column;
+	width: 300px; 
+}
+
+.content { grid-area: game; }	

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
+import Button from '@mui/material/Button';
 
 import { CHOOSE_ROUND_CARD, CHOOSE_ROUND_WINNER } from '../api/fetch';
 
@@ -30,6 +31,7 @@ const UserCards = ({ cards: cardsProp, gameId, user, gameRound }) => {
 	});
 
 	const canSelect = useMemo(() => {
+		return true;
 		if(user === gameRound?.cardCzar){
 			return gameRound?.status === 'czar_choosing_winner';
 		}
@@ -61,16 +63,16 @@ const UserCards = ({ cards: cardsProp, gameId, user, gameRound }) => {
 
 	return (
 		<>
-			<div className="-translate-x-full xl:-translate-x-1/2 transition-spacing duration-200 ease absolute bg-black text-white hover:bg-white hover:text-black transition-colors border-4 border-black rounded-6 py-1 px-5 cursor-pointer flex flex-row items-center" style={{
+			<div className="-translate-x-1/2 transition-spacing duration-200 ease absolute text-white" style={{
 				left: '50%',
-				bottom: (selectedCard && !locked && canSelect) ? '245px' : '180px'
+				bottom: (selectedCard && !locked && canSelect) ? '250px' : '100px'
 			}} onClick={submitAnswer}>
-				<p className="font-bold text-16">{isCzar ? 'Choose Winner' : 'Submit Answer'}</p>
+				<Button variant="contained" sx={{ fontSize: 16, fontWeight: 500, mt: 0, height: '100%' }} color="primary">
+					{isCzar ? 'Choose Winner' : 'Submit Answer'}
+				</Button>
 			</div>
 
-			<div className="w-full bg-white border-t-4 border-t-black z-30 overflow-x-auto overflow-y-hidden" style={{
-				minHeight: '220px'
-			}}>
+			<div className="cards bg-footerBg text-white z-30 overflow-x-auto overflow-y-hidden">
 				<div className={`w-full h-full z-50 px-6 py-4 flex flex-row ${cards?.length > 5 ? '2xl:justify-center' : 'justify-center'} items-center gap-6`}>
 					{(!Array.isArray(cards) || cards?.length === 0) ? (
 						<div className="w-full flex flex-row justify-center">

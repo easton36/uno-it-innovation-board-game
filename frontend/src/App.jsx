@@ -7,8 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Main from './views/Main';
-import CreateGame from './views/CreateGame';
-import JoinGame from './views/JoinGame';
 import Game from './views/Game';
 
 import io from 'socket.io-client';
@@ -20,6 +18,18 @@ const theme = createTheme({
 		gray: {
 			main: '#f5f5f5',
 			darker: '#e0e0e0',
+		},
+		primary: {
+			main: '#1475E1'
+		},
+		success: {
+			main: '#00e701'
+		}
+	},
+	typography: {
+		button: {
+			textTransform: 'none',
+			fontWeight: '500'
 		}
 	}
 });
@@ -31,19 +41,11 @@ const socket = io('http://192.168.1.121:3000', {
 });
 
 const App = () => {
-  	const [isConnected, setIsConnected] = useState(socket?.connected);
-
 	const [user, setUser] = useState(null);
 	const [activeGame, setActiveGame] = useState(null);
 	const [players, setPlayers] = useState([]);
 	const [gameFeed, setGameFeed] = useState([]);
 	const [gameRound, setGameRound] = useState();
-	/* {
-		name: '', // user name
-		userId: '', // user id
-		event: '', // websocket event
-		message: '', // feed message
-	} */
 	const [questionCard, setQuestionCard] = useState();
 	const [userCards, setUserCards] = useState([]);
 
@@ -75,7 +77,7 @@ const App = () => {
 				round: gameData.data?.round,
 				players: gameData.data?.players,
 				status: gameData.data?.roundStatus
-			})
+			});
 			setActiveGame(gameData.data);
 			setQuestionCard(gameData.data?.questionCard);
 			setPlayers(gameData.data?.players);
@@ -96,14 +98,10 @@ const App = () => {
 		initiateUser();
 
 		socket?.on('connect', () => {
-			setIsConnected(true);
-
 			toast.success('Connected to the server!');
 		});
 
 		socket?.on('disconnect', () => {
-			setIsConnected(false);
-
 			toast.error('You have been disconnected from the server!');
 		});
 
@@ -115,7 +113,8 @@ const App = () => {
 				...data,
 				_id: data.userId,
 				id: data.userId,
-				name: data.name
+				name: data.name,
+				points: 0
 			}]);
 			
 			setGameFeed(prev => [...prev, {
@@ -163,9 +162,9 @@ const App = () => {
 				...data,
 				status: 'players_choosing_cards'
 			});
-
 			setActiveGame(prev => ({
 				...prev,
+				rounds: [...(prev.rounds || []), data],
 				round: data.round
 			}));
 
@@ -225,6 +224,19 @@ const App = () => {
 				timestamp: Date.now()
 			}]);
 
+			// append the answer data to the round data
+			setGameRound(prev => ({
+				...prev,
+				status: 'finished'
+			}));
+			setActiveGame(prev => ({
+				...prev,
+				rounds: [...(prev.rounds || []), {
+					...(prev.rounds || [])[prev.rounds?.length - 1],
+					answers: data.answers
+				}]
+			}));
+
 			setUserCards(data.answers);
 
 			console.log('game:round:end', data);
@@ -246,15 +258,38 @@ const App = () => {
 				timestamp: Date.now()
 			}]);
 
+			// add points to the player that won
+			setPlayers(prev => {
+				const prevPlayers = [...prev];
+
+				const winningPlayerIndex = prevPlayers.findIndex(player => player.id === data.winner);
+
+				prevPlayers[winningPlayerIndex].points += data.points || 5;
+				
+				return prevPlayers;
+			});
+
+			// add the winning answer to the question card
 			setQuestionCard(prev => ({
 				...prev,
 				text: prev?.text?.includes('BLANK') ? prev?.text.replace('BLANK', data.winningCard?.text) : (prev?.text + ' ' + data.winningCard?.text),
 				winner: data.winner
 			}));
 
+			// append winnner data to the round data
 			setGameRound(prev => ({
 				...prev,
 				status: 'finished'
+			}));
+			setActiveGame(prev => ({
+				...prev,
+				rounds: [...(prev.rounds || []), {
+					...(prev.rounds || [])[prev.rounds?.length - 1],
+					winner: data.winner,
+					winningCard: data.winningCard,
+					points: data.points,
+					status: 'finished'
+				}]
 			}));
 
 			console.log('game:round:winner', data);
@@ -262,6 +297,19 @@ const App = () => {
 
 		// game ended
 		socket?.on('game:end', (data) => {
+			setGameFeed(prev => [...prev, {
+				event: 'game:end',
+				message: 'The game has ended!',
+				timestamp: Date.now()
+			}]);
+			setGameFeed(prev => [...prev, {
+				event: 'game:round:winner',
+				name: data.winner,
+				nameIsId: true,
+				message: 'is the overall game winner!',
+				timestamp: Date.now()
+			}]);
+
 			console.log('game:end', data);
 		});
 
@@ -292,8 +340,6 @@ const App = () => {
 						gameCreated={gameCreated}
 						gameJoined={gameJoined}
 					/>} />
-					<Route path="/create-game" element={<CreateGame  />} />
-					<Route path="/join-game" element={<JoinGame gameJoined={gameJoined} />} />
 					<Route path="/game" element={<Game 
 						activeGame={activeGame}
 						userCards={userCards}
