@@ -37,7 +37,7 @@ const theme = createTheme({
 	}
 });
 
-const socket = io('https://chat.easton.gg', {
+const socket = io('https://game.easton.gg', {
 	extraHeaders: {
 		Authorization: `Bearer ${localStorage.getItem('token')}`
 	}

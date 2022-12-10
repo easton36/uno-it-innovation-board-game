@@ -34,7 +34,7 @@ require('./websocket/websocket.manager').initialize(server);
 app.use(cors({
 	exposedHeaders: 'Authorization',
 	credentials: true,
-	origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://192.168.1.121:5173']
+	origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://192.168.1.121:5173', 'https://game.easton.gg']
 }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
