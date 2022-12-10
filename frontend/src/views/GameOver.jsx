@@ -9,6 +9,7 @@ import GameModal from '../components/GameModal';
 const GameOver = ({ activeGame, players: playersProp }) => {
 	const [players, setPlayers] = useState(playersProp);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [game, setGame] = useState(activeGame);
 
 	const toggleModal = () => {
 		setModalOpen(prev => !prev);
@@ -16,39 +17,10 @@ const GameOver = ({ activeGame, players: playersProp }) => {
 
 	useEffect(() => {
 		setPlayers(playersProp);
-	}, [playersProp]);
+		setGame(activeGame);
+	}, [playersProp, activeGame]);
 
 	const playersSorted = useMemo(() => {
-		/* return [
-			{
-				name: 'Player 1',
-				points: 60
-			},
-			{
-				name: 'Player 2',
-				points: 40
-			},
-			{
-				name: 'Player 3',
-				points: 20
-			},
-			{
-				name: 'Player 4',
-				points: 10
-			},
-			{
-				name: 'Player 5',
-				points: 5
-			},
-			{
-				name: 'Player 6',
-				points: 0
-			},
-			{
-				name: 'Player 7',
-				points: 0
-			},
-		]; */
 		return players.sort((a, b) => b.points - a.points);
 	}, [players]);
 
@@ -125,7 +97,7 @@ const GameOver = ({ activeGame, players: playersProp }) => {
 					transform: 'translate(-50%, -50%)',
 					width: 400
 				}}>
-					<GameModal rounds={activeGame?.rounds} game={activeGame} players={players}/>
+					<GameModal game={activeGame} players={players}/>
 				</Box>
 			</Modal>
 		</div>

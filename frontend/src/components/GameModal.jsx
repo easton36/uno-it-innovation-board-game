@@ -4,14 +4,14 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const GameModal = ({ rounds: roundsProp, game, players }) => {
+const GameModal = ({ game, players }) => {
 	const [rounds, setRounds] = useState([]);
 	const [screen, setScreen] = useState('main');
 	const [activeRound, setActiveRound] = useState(null);
 
 	useEffect(() => {
-		setRounds([...roundsProp].reverse().filter((round, index, self) => index === self.findIndex(r => r.id === round.id)).reverse());
-	}, [roundsProp]);
+		setRounds([...roundsProp?.rounds].reverse().filter((round, index, self) => index === self.findIndex(r => r.id === round.id)).reverse());
+	}, [game]);
 
 	return (
 		<>

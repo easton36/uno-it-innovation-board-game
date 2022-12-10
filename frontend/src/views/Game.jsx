@@ -18,7 +18,7 @@ const Game = ({ activeGame, userCards, questionCard: questionCardProp, user, gam
 	const [questionCard, setQuestionCard] = useState(questionCardProp);
 	const [creator, setCreator] = useState();
 	const [players, setPlayers] = useState(playersProp);
-	const [rounds, setRounds] = useState(activeGame?.rounds || {});
+	const [game, setGame] = useState(activeGame);
 
 	const [modalOpen, setModalOpen] = useState(false);
 
@@ -35,7 +35,7 @@ const Game = ({ activeGame, userCards, questionCard: questionCardProp, user, gam
 		setQuestionCard(questionCardProp);
 		setCreator(activeGame?.creator);
 		setPlayers(playersProp);
-		setRounds(activeGame.rounds);
+		setGame(activeGame);
 	}, [userCards, questionCardProp, activeGame, playersProp]);
 
 	return (
@@ -68,7 +68,7 @@ const Game = ({ activeGame, userCards, questionCard: questionCardProp, user, gam
 					transform: 'translate(-50%, -50%)',
 					width: 400
 				}}>
-					<GameModal rounds={rounds} game={activeGame} players={players}/>
+					<GameModal game={activeGame} players={players}/>
 				</Box>
 			</Modal>
 		</div>
