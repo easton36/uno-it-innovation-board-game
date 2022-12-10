@@ -10,7 +10,7 @@ const GameModal = ({ game, players }) => {
 	const [activeRound, setActiveRound] = useState(null);
 
 	useEffect(() => {
-		setRounds([...roundsProp?.rounds].reverse().filter((round, index, self) => index === self.findIndex(r => r.id === round.id)).reverse());
+		setRounds([...game?.rounds].reverse().filter((round, index, self) => index === self.findIndex(r => r.id === round.id)).reverse());
 	}, [game]);
 
 	return (
