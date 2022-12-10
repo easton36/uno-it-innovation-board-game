@@ -119,7 +119,7 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 					marginTop: '-1px'
 				}}>
 					<div className="absolute top-8 text-center w-full">
-						<p className="mb-0 text-22 font-semibold">Cards Against Humanity</p>
+						<p className="mb-0 text-22 font-semibold">Cards Against Cybersecurity</p>
 						{/* <p className="-mt-1 text-14 font-normal">{subTitle}</p> */}
 					</div>
 
