@@ -2,6 +2,8 @@ const http = require('http');
 const cors = require('cors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 // initialize mongoose mongodb
@@ -38,8 +40,15 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// built react frontend
+app.use(express.static(path.resolve(__dirname, '../frontend/dist')));
+
 // api routes
 app.use('/api', ApiRoutes);
+
+app.get('*', function(req, res){
+	res.sendFile(path.resolve(__dirname, '../frontend/dist/index.html'));
+});
 
 // api error handlers
 app.use(ErrorHandler);

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://192.168.1.121:3000/api';
+const API_URL = 'https://chat.easton.gg/api';
 
 // sometimes we use localStorage instead of cookies because of CSRF stuff
 // on production site that shouldn't be an issue

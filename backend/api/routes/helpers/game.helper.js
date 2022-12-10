@@ -1,7 +1,7 @@
 const { findGame } = require('./queries.helper');
 
-const answerDeck = require('../../../data/answerDeck.json');
-const questionBaseDeck = require('../../../data/questionBaseDeck.json');
+const answerDeck = require('../../../data/cybersecurityAnswers.json'); // require('../../../data/answerDeck.json');
+const questionBaseDeck = require('../../../data/cybersecurityQuestions.json'); // require('../../../data/questionBaseDeck.json');
 
 const CODE_LENGTH = 6;
 const CODE_CHARS = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -44,7 +44,7 @@ const pickUserCards = (userIds) => {
 // match the deck name to the deck data
 const getQuestionDeckCards = (deck) => {
 	switch(deck.toLowerCase()){
-	case 'base':
+	case 'cybersecurity':
 		return questionBaseDeck;
 	default:
 		return questionBaseDeck;
@@ -53,14 +53,14 @@ const getQuestionDeckCards = (deck) => {
 
 const getAnswerDeckCards = (deck) => {
 	switch(deck.toLowerCase()){
-	case 'base':
+	case 'cybersecurity':
 		return answerDeck;
 	default:
 		return answerDeck;
 	}
 };
 
-const pickQuestionCard = (previousCards, deck = 'base') => {
+const pickQuestionCard = (previousCards, deck = 'cybersecurity') => {
 	const deckCards = getQuestionDeckCards(deck);
 	// remove the previous cards from the deck
 	const filteredDeckCards = [...deckCards].filter(card => previousCards.findIndex(prevCard => prevCard?._id === card?._id) === -1);
@@ -130,13 +130,13 @@ const initiateNextRound = async (gameCode) => {
 	};
 };
 
-const validateQuestionCard = (cardId, deck = 'base') => {
+const validateQuestionCard = (cardId, deck = 'cybersecurity') => {
 	const deckCards = getQuestionDeckCards(deck);
 
 	return deckCards.find(card => card._id === cardId);
 };
 
-const validateAnswerCard = (cardId, deck = 'base') => {
+const validateAnswerCard = (cardId, deck = 'cybersecurity') => {
 	const deckCards = getAnswerDeckCards(deck);
 
 	return deckCards.find(card => card._id === cardId);

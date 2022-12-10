@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+
 import Button from '@mui/material/Button';
 
 import  { START_ROUND } from '../api/fetch';
 
-const GameNav = ({ activeGame, isCreator, toggleModal }) => {
+const GameNav = ({ activeGame, isCreator, toggleModal, status }) => {
 	const [round, setRound] = useState(activeGame?.round);
 	const [gameCode, setGameCode] = useState(activeGame?.code);
 
@@ -26,7 +28,9 @@ const GameNav = ({ activeGame, isCreator, toggleModal }) => {
 			height: '60px',
 			boxShadow: '#0003 0 4px 6px -1px, #0000001f 0 2px 4px -1px'
 		}}>
-			<p className="font-bold text-18 text-white">Cards Against Humanity</p>
+			<Link to="/">
+				<p className="font-bold text-18 text-white">Cards Against Cybersecurity</p>
+			</Link>
 
 			<div className="absolute flex flex-row items-center justify-center gap-5" style={{
 				left: '50%',
@@ -36,7 +40,7 @@ const GameNav = ({ activeGame, isCreator, toggleModal }) => {
 					navigator.clipboard.writeText(gameCode);
 					toast.success('Game code copied to clipboard!');
 				}}>{gameCode}</p>
-				<p className="font-bold text-20 text-white">{round === 0 ? 'Waiting for game to start...' : `Round ${round}`}</p>
+				<p className="font-bold text-20 text-white">{status ? status : round === 0 ? 'Waiting for game to start...' : `Round ${round}`}</p>
 			</div>
 
 			<div className="flex flex-row gap-2">

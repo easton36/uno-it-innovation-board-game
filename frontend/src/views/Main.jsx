@@ -38,13 +38,13 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 	};
 
 	const [gameLength, setGameLength] = useState('');
-	const [gameDeck, setGameDeck] = useState('');
+	const [gameDeck, setGameDeck] = useState('cybersecurity');
 
 	const createGame = async () => {
 		if(![5, 10, 15].includes(gameLength)){
 			return toast.error('Please select a valid game length');
 		}
-		if(!['base', 'cybersecurity', 'bioinformatics',].includes(gameDeck)){
+		if(!['cybersecurity'].includes(gameDeck)){
 			return toast.error('Please select a valid game deck');
 		}
 
@@ -199,9 +199,7 @@ const App = ({ activeGame, initiateUser, sessionToken, gameCreated, gameJoined }
 									}} sx={{
 										color: 'white',
 									}}>
-										<MenuItem value={'base'}>Base</MenuItem>
 										<MenuItem value={'cybersecurity'}>Cybersecurity</MenuItem>
-										<MenuItem value={'bioinformatics'}>Bioinformatics</MenuItem>
 									</Select>
 								</FormControl>
 							</div>

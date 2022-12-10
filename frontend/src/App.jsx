@@ -6,8 +6,11 @@ import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { CustomBrowserRouter, customHistory } from "./components/CustomBrowserRouter";
+
 import Main from './views/Main';
 import Game from './views/Game';
+import GameOver from './views/GameOver';
 
 import io from 'socket.io-client';
 
@@ -34,7 +37,7 @@ const theme = createTheme({
 	}
 });
 
-const socket = io('http://192.168.1.121:3000', {
+const socket = io('https://chat.easton.gg', {
 	extraHeaders: {
 		Authorization: `Bearer ${localStorage.getItem('token')}`
 	}
@@ -272,7 +275,7 @@ const App = () => {
 			// add the winning answer to the question card
 			setQuestionCard(prev => ({
 				...prev,
-				text: prev?.text?.includes('BLANK') ? prev?.text.replace('BLANK', data.winningCard?.text) : (prev?.text + ' ' + data.winningCard?.text),
+				text: prev?.text?.includes('BLANK') ? prev?.text.replace('BLANK', data.winningCard?.text?.replace('.', '')) : (prev?.text + ' ' + data.winningCard?.text?.replace('.', '')),
 				winner: data.winner
 			}));
 
@@ -310,6 +313,11 @@ const App = () => {
 				timestamp: Date.now()
 			}]);
 
+			setTimeout(() => {
+				//window.location.href = '/game-over';
+				customHistory.push("/game-over");
+			}, 1000);
+
 			console.log('game:end', data);
 		});
 
@@ -331,7 +339,7 @@ const App = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Router>
+			<CustomBrowserRouter>
 				<Routes>
 					<Route path="/" element={<Main
 						activeGame={activeGame}
@@ -350,8 +358,13 @@ const App = () => {
 						gameRound={gameRound}
 						players={players}
 					/>} />
+					<Route path="/game-over" element={<GameOver
+						activeGame={activeGame}
+						players={players}
+						user={user}
+					/>} />
 				</Routes>
-			</Router>
+			</CustomBrowserRouter>
 
 			<ToastContainer 
 			    position="bottom-right"

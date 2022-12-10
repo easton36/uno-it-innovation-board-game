@@ -110,7 +110,7 @@ module.exports = mongoose.model('Game', new mongoose.Schema({
 	deck: {
 		type: String,
 		required: true,
-		default: 'base'
+		default: 'cybersecurity'
 	},
 	creator: { // user id of the creator
 		type: String,

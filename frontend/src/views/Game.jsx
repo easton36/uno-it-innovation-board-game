@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Modal from '@mui/material/Modal';
-import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 import GameNav from '../components/GameNav';
 import UserCards from '../components/UserCards';

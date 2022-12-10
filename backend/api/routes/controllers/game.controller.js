@@ -133,10 +133,11 @@ const joinGame = async (req, res, next) => {
 
 const createGame = async (req, res, next) => {
 	try{
-		const { deck = 'base', gameLength = 5 } = req.body;
+		const { deck = 'cybersecurity', gameLength = 5 } = req.body;
 
 		assert(deck, 'Please provide a deck');
-		assert(['cybersecurity', 'bioinformatics', 'base'].includes(deck.toLowerCase()), 'Invalid deck type');
+		// assert(['cybersecurity', 'bioinformatics', 'base'].includes(deck.toLowerCase()), 'Invalid deck type');
+		assert(['cybersecurity'].includes(deck.toLowerCase()), 'Invalid deck type');
 
 		assert(gameLength, 'Please provide a game length');
 		assert([5, 10, 15].includes(Number(gameLength)), 'Invalid game length');

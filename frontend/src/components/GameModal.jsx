@@ -20,7 +20,7 @@ const GameModal = ({ rounds: roundsProp, game, players }) => {
 					transition: 'color .2s'
 				}}/>
 			</div>
-			<p className="w-full text-center font-semibold text-18 text-white mb-6">{screen === 'main' ? 'Game Information' : `Round ${activeRound?.round - 1}`}</p>
+			<p className="w-full text-center font-semibold text-18 text-white mb-6">{screen === 'main' ? 'Game Information' : `Round ${activeRound?.round}`}</p>
 
 			{screen === 'main' && (
 				<>
@@ -35,13 +35,19 @@ const GameModal = ({ rounds: roundsProp, game, players }) => {
 						</div>
 					</div>
 
+					{rounds.length === 0 && (
+						<div className="bg-secondaryBg w-full flex flex-col items-center justify-center rounded-lg py-3 px-2">
+							<p className="w-full text-center text-14 text-white">Information about each game round will appear here once a round has been played!</p>
+						</div>
+					)}
+
 					<div className="w-full flex flex-col gap-2">
 						{[...rounds].map((round, index) => (
 							<div className="w-full cursor-pointer hover:bg-secondaryBg transition-colors flex flex-row items-center justify-between rounded-lg border-mainBg border-2 px-3 py-3" key={index} onClick={() => {
 								setScreen('round');
 								setActiveRound(round);
 							}}>
-								<p className="font-semibold text-white">Round {index}</p>
+								<p className="font-semibold text-white">Round {index + 1}</p>
 
 								<ArrowRightIcon className="text-white" fontSize="medium"/>
 							</div>
@@ -59,7 +65,7 @@ const GameModal = ({ rounds: roundsProp, game, players }) => {
 						</div>
 						<div className="bg-secondaryBg w-1/2 flex flex-col items-center justify-center rounded-lg py-3 px-2">
 							<p className="w-full text-center text-16 font-semibold text-white mb-2">Winner</p>
-							<p className="w-full text-center text-14 text-white">{players.find(player => player.id === activeRound.cardCzar)?.name || 'Undecided'}</p>
+							<p className="w-full text-center text-14 text-white">{players.find(player => player.id === activeRound.winner)?.name || 'Undecided'}</p>
 						</div>
 					</div>
 

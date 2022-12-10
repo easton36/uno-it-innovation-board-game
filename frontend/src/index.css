@@ -79,4 +79,19 @@ html, body, #root{
 	width: 300px; 
 }
 
-.content { grid-area: game; }	
+.content { grid-area: game; }
+
+.bottom { grid-area: bottom }
+
+.gameOver {
+	max-height: 100vh;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 0.6fr 1.4fr 1fr;
+	grid-template-rows: 60px 1fr auto;
+	gap: 0px 0px;
+	grid-template-areas:
+	  "nav nav nav"
+	  "game game game"
+	  "bottom bottom bottom";
+}

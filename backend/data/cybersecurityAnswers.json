@@ -1,0 +1,533 @@
+[{
+	"text": "Edward Snowden in a musical about Kevin Mitnick.",
+	"deck": "cybersecurity",
+	"_id": "984860a7-50cd-47cc-ba5a-f63a049cf057"
+}, {
+	"text": "Poorly thought out password requirements.",
+	"deck": "cybersecurity",
+	"_id": "ba028da4-4ab1-4f39-96f4-f563d6cbc38c"
+}, {
+	"text": "Skipping the 'hard' parts of PCI compliance.",
+	"deck": "cybersecurity",
+	"_id": "4a5a291f-ab3e-499a-b14e-dd4fb684a71e"
+}, {
+	"text": "A code repository with no backups.",
+	"deck": "cybersecurity",
+	"_id": "4f5f7553-db24-4a71-8c52-2125268101a6"
+}, {
+	"text": "Two factor auth with a cereal box decoder ring.",
+	"deck": "cybersecurity",
+	"_id": "46f278b2-9d91-466b-8c74-d93280f2efe8"
+}, {
+	"text": "WikiLeaks.",
+	"deck": "cybersecurity",
+	"_id": "fc358233-cf0d-40c4-b5ae-a628a89d2e86"
+}, {
+	"text": "A Last Generation Firewall.",
+	"deck": "cybersecurity",
+	"_id": "ca94eee1-8d1d-4666-a194-0f3e98ecbaaf"
+}, {
+	"text": "Leaked celebrity photos.",
+	"deck": "cybersecurity",
+	"_id": "8cdf6978-83ab-4351-927d-56dac96bb213"
+}, {
+	"text": "Halle Berry in Swordfish.",
+	"deck": "cybersecurity",
+	"_id": "7c79a52c-f129-4a10-a1fd-f30b2b5e4b09"
+}, {
+	"text": "Polymorphic malware delivered via smoke signals.",
+	"deck": "cybersecurity",
+	"_id": "66c65039-0e8f-455b-9d37-4b122e574208"
+}, {
+	"text": "Using an exploit you saw on CSI:Cyber.",
+	"deck": "cybersecurity",
+	"_id": "2451e61f-04d1-4b9e-a051-89fd2475feff"
+}, {
+	"text": "Licking a UPS battery terminal to check if the battery is good.",
+	"deck": "cybersecurity",
+	"_id": "4e6f335c-e1b3-4b76-922b-d63f924e243e"
+}, {
+	"text": "Hillary Clinton's email server.",
+	"deck": "cybersecurity",
+	"_id": "6814ebc1-78f1-4129-b72f-40190a72e423"
+}, {
+	"text": "Hacking the planet.",
+	"deck": "cybersecurity",
+	"_id": "04fa5968-3888-4ebe-a216-2671e80585d3"
+}, {
+	"text": "Trusting but not verifying.",
+	"deck": "cybersecurity",
+	"_id": "42b93bec-f7a5-49ea-b022-d965e94811b9"
+}, {
+	"text": "Adding a firewall rule without first allowing your remote connection.",
+	"deck": "cybersecurity",
+	"_id": "5b5f320c-dbc8-49f3-b55c-2183fe6eae45"
+}, {
+	"text": "Winnie The Pooh's Honeypot.",
+	"deck": "cybersecurity",
+	"_id": "ac68f942-a5f2-47e5-b85c-d2e10436ca63"
+}, {
+	"text": "A pen test with an actual pen.",
+	"deck": "cybersecurity",
+	"_id": "bf00bdc9-86ed-4a6e-9e1a-91bf74c47754"
+}, {
+	"text": "1337 sp34k.",
+	"deck": "cybersecurity",
+	"_id": "b9ecb42b-ee88-43b0-9866-f8796c9bfa76"
+}, {
+	"text": "A reality show about PCI compliance.",
+	"deck": "cybersecurity",
+	"_id": "71798b0a-8674-4597-aaf2-768ff7ee3801"
+}, {
+	"text": "A firewall support call to Bangalore.",
+	"deck": "cybersecurity",
+	"_id": "f589cdce-fa2e-4fe2-b919-27b1b90602b7"
+}, {
+	"text": "The vendor saying it was minor.",
+	"deck": "cybersecurity",
+	"_id": "2f10c39a-1820-478f-b45a-ad4c1e500d30"
+}, {
+	"text": "Running metasploit against whitehouse.gov.",
+	"deck": "cybersecurity",
+	"_id": "1e56e4f7-c78a-4220-a164-f563f8cda81d"
+}, {
+	"text": "APTs created by a 9 year old.",
+	"deck": "cybersecurity",
+	"_id": "b48a6ed2-68cc-4e65-b394-e6a82963e7c2"
+}, {
+	"text": "Thinking your live threat map is a scene from War Games.",
+	"deck": "cybersecurity",
+	"_id": "8f79b263-77eb-4f33-99ba-de3568a419ab"
+}, {
+	"text": "Implementing @SwiftOnSecurity tweets.",
+	"deck": "cybersecurity",
+	"_id": "02a4a28e-8f1a-4923-984d-afca32a5ee90"
+}, {
+	"text": "An admin account with a default password.",
+	"deck": "cybersecurity",
+	"_id": "8299f4f1-50b0-46db-837e-34c9a1664866"
+}, {
+	"text": "Fileserver with a token ring card.",
+	"deck": "cybersecurity",
+	"_id": "a1de94bb-51e7-4411-ab1b-ae4e7fed62d9"
+}, {
+	"text": "An ID-10-T error.",
+	"deck": "cybersecurity",
+	"_id": "3d494b9a-ef3a-48d8-8b30-2509022be1c8"
+}, {
+	"text": "An online bully who takes your lunch money.",
+	"deck": "cybersecurity",
+	"_id": "a1710051-cffd-43a4-84f2-6a133a15ad4c"
+}, {
+	"text": "A book called 'Computer Forensics For Dummies'.",
+	"deck": "cybersecurity",
+	"_id": "22e9d062-67a3-4f08-99d6-202279168e54"
+}, {
+	"text": "A WIFI pineapple.",
+	"deck": "cybersecurity",
+	"_id": "7608ded3-b8c2-474b-a0be-4a890aa6f89d"
+}, {
+	"text": "Dropping a server onto your CTO's Porsche.",
+	"deck": "cybersecurity",
+	"_id": "fb5b4a09-f843-44f5-bbce-61acbaeaa556"
+}, {
+	"text": "An accidental factory reset.",
+	"deck": "cybersecurity",
+	"_id": "d5b6cd05-b299-4821-8016-76866356a163"
+}, {
+	"text": "An old switch you're too scared to replace.",
+	"deck": "cybersecurity",
+	"_id": "2e3c10cc-002d-49a9-b259-c820e8260e25"
+}, {
+	"text": "Sandra Bullock in The Net.",
+	"deck": "cybersecurity",
+	"_id": "96752a7d-2fa4-449c-ac88-ada6e4f6d9df"
+}, {
+	"text": "All of China and most of North Korea.",
+	"deck": "cybersecurity",
+	"_id": "ae62eea1-4ef4-4552-b32b-591aa34f84ca"
+}, {
+	"text": "A 4 character password.",
+	"deck": "cybersecurity",
+	"_id": "cb14029c-264b-4f81-85c6-5bb7003291db"
+}, {
+	"text": "Transferring over sneakernet.",
+	"deck": "cybersecurity",
+	"_id": "91174b7c-0997-4929-9009-6c4c563e4dd8"
+}, {
+	"text": "The man in the middle.",
+	"deck": "cybersecurity",
+	"_id": "fcb67457-786f-4749-864b-f1c93d3fef5c"
+}, {
+	"text": "A password written on a post-it under your keyboard.",
+	"deck": "cybersecurity",
+	"_id": "5c72009f-0e94-47df-8f72-ef122db134b3"
+}, {
+	"text": "An alert email from an unplugged server.",
+	"deck": "cybersecurity",
+	"_id": "129f3148-4d5b-4254-a480-6360560c70f1"
+}, {
+	"text": "A data breach of cat memes.",
+	"deck": "cybersecurity",
+	"_id": "7cf44a1d-9745-444c-80ba-60a5c1be0116"
+}, {
+	"text": "Awkward social engineering.",
+	"deck": "cybersecurity",
+	"_id": "91b1dd22-ed86-4446-8bfc-3f529cbb968a"
+}, {
+	"text": "Heartbleed.",
+	"deck": "cybersecurity",
+	"_id": "dbf3464a-cb0c-4518-b685-a6e9f815068b"
+}, {
+	"text": "An old version of OpenSSL.",
+	"deck": "cybersecurity",
+	"_id": "63097461-f121-4bbf-90f5-4374ab425de0"
+}, {
+	"text": "Running your own IRC server.",
+	"deck": "cybersecurity",
+	"_id": "6ff32254-db66-4854-81ff-215f4ff29a91"
+}, {
+	"text": "A 300 baud acoustic coupler.",
+	"deck": "cybersecurity",
+	"_id": "b4ac19ee-bd88-44dd-8279-7600e1cef8ce"
+}, {
+	"text": "A deny any rule.",
+	"deck": "cybersecurity",
+	"_id": "83ff4ac8-b2f3-4eec-bfdf-bf65f8503bf2"
+}, {
+	"text": "ADHD reverse engineering.",
+	"deck": "cybersecurity",
+	"_id": "28c09bce-4baf-4624-98c9-3079f7cb03a6"
+}, {
+	"text": "A QSA you found on craigslist.org.",
+	"deck": "cybersecurity",
+	"_id": "f8aebe12-d541-4736-9ed1-9434320e2bd1"
+}, {
+	"text": "Getting blinded by an LX transceiver.",
+	"deck": "cybersecurity",
+	"_id": "3d17e420-ac71-435e-894f-18d679bd9df3"
+}, {
+	"text": "Nigerian princess spam.",
+	"deck": "cybersecurity",
+	"_id": "9c935059-ae7a-4895-8d17-e21213c57eae"
+}, {
+	"text": "chown -R nobody-nobody.",
+	"deck": "cybersecurity",
+	"_id": "a5207b58-534a-4232-b7ec-20b5955a2c63"
+}, {
+	"text": "6 games of Spot the Fed.",
+	"deck": "cybersecurity",
+	"_id": "381bd141-695e-461f-a84d-64625ef27422"
+}, {
+	"text": "An allow any rule.",
+	"deck": "cybersecurity",
+	"_id": "ef37df7d-c0c2-4e01-9f8d-056f6efa33db"
+}, {
+	"text": "Shellshock.",
+	"deck": "cybersecurity",
+	"_id": "c76ce027-36ba-41bd-937b-b17460dc3c15"
+}, {
+	"text": "Jumping the Wireshark.",
+	"deck": "cybersecurity",
+	"_id": "b32338cf-c23d-4236-8a49-b578bc775c7f"
+}, {
+	"text": "Script kiddies from Romania.",
+	"deck": "cybersecurity",
+	"_id": "97bd5e1c-0171-41c2-a5b9-09d2fb4c6720"
+}, {
+	"text": "Venom.",
+	"deck": "cybersecurity",
+	"_id": "2fbcad50-9d17-4f8f-ae9c-0799e5fb01b1"
+}, {
+	"text": "John McAfee's Lecture circuit in Belize.",
+	"deck": "cybersecurity",
+	"_id": "6509f21e-a6cf-4169-9780-24e814d903ee"
+}, {
+	"text": "The futility of hacking a refrigerator video feed.",
+	"deck": "cybersecurity",
+	"_id": "89d1f0e8-3162-48c4-98bd-39622474f9f0"
+}, {
+	"text": "Insufficient caffeine.",
+	"deck": "cybersecurity",
+	"_id": "2af45a13-cccb-4bbe-9008-ac75e892634a"
+}, {
+	"text": "A biometric-locked data center you can blind telnet into.",
+	"deck": "cybersecurity",
+	"_id": "386813a9-f974-4c0c-9050-76227f2e9aa4"
+}, {
+	"text": "The TOR network.",
+	"deck": "cybersecurity",
+	"_id": "88e5aff6-e58e-4c43-b165-58ce75583f65"
+}, {
+	"text": "PC versus Mac security wars.",
+	"deck": "cybersecurity",
+	"_id": "4e7b357a-9a96-4164-9392-73044d1a1357"
+}, {
+	"text": "Your security analyst intern selling vulnerabilities for profit.",
+	"deck": "cybersecurity",
+	"_id": "55aa9b71-f134-4be3-9d51-d82e8a120d99"
+}, {
+	"text": "The Code Monkey song.",
+	"deck": "cybersecurity",
+	"_id": "579d6a25-2260-4ef6-8802-e66c39e17a20"
+}, {
+	"text": "Bruce Schneier vs. Chuck Norris at Maddison Square Garden.",
+	"deck": "cybersecurity",
+	"_id": "6183bcff-7fb5-4fbb-b040-182494cc6bad"
+}, {
+	"text": "Mikko Hypponen's ponytail.",
+	"deck": "cybersecurity",
+	"_id": "d2b1eac3-a917-45df-ae8b-e1a291f92d68"
+}, {
+	"text": "A password cache posted to Pastebin.",
+	"deck": "cybersecurity",
+	"_id": "9df3596f-012c-4001-b9fb-9f97c229248d"
+}, {
+	"text": "An illustrated history of cryptography.",
+	"deck": "cybersecurity",
+	"_id": "16f58460-7014-4a2c-b03b-dd37aa32c874"
+}, {
+	"text": "Laser-generated random numbers for cryptography.",
+	"deck": "cybersecurity",
+	"_id": "5efff9fa-7477-4952-8dc3-2d77bdaacdf6"
+}, {
+	"text": "A brute-force attack squad.",
+	"deck": "cybersecurity",
+	"_id": "675a2dbf-f84c-41d8-9c27-57330596bbe4"
+}, {
+	"text": "An original Cap'n Crunch whistle.",
+	"deck": "cybersecurity",
+	"_id": "21f1a389-8de6-4f74-9df8-c72944054655"
+}, {
+	"text": "Time traveling phone phreaks from 1986.",
+	"deck": "cybersecurity",
+	"_id": "730cbe87-3326-4bf1-a500-c4cea150b776"
+}, {
+	"text": "A 2600 Magazine Letter to the Editor.",
+	"deck": "cybersecurity",
+	"_id": "9f09e894-7541-41ff-b3e6-1ebe7a252cd5"
+}, {
+	"text": "Acting lessons at Security Theater.",
+	"deck": "cybersecurity",
+	"_id": "f77dabfb-0c15-4897-acba-b0595d20fbda"
+}, {
+	"text": "A thorough TSA body cavity search.",
+	"deck": "cybersecurity",
+	"_id": "b46d5065-d396-4c01-8eda-6f00d5c65048"
+}, {
+	"text": "One phish, two phish, red phish, Blowfish.",
+	"deck": "cybersecurity",
+	"_id": "fcb0c53e-3467-4384-9011-231db9000a42"
+}, {
+	"text": "Metasploit. Metasploit. Metasploit. It's just fun to say.",
+	"deck": "cybersecurity",
+	"_id": "c5e57007-d8a7-4d50-9aa3-470509dd27bc"
+}, {
+	"text": "Old school wardialing with punch cards.",
+	"deck": "cybersecurity",
+	"_id": "65d5ddd9-0033-423b-bbdc-d0ff1f1e25b0"
+}, {
+	"text": "It's a Unix system. I know this!",
+	"deck": "cybersecurity",
+	"_id": "51b8c85a-7b75-40c7-8fad-55b095875249"
+}, {
+	"text": "A sentient keystroke logger.",
+	"deck": "cybersecurity",
+	"_id": "6473e8c6-8e21-438d-a365-7cb5e07f4316"
+}, {
+	"text": "Atari 8 bit encryption.",
+	"deck": "cybersecurity",
+	"_id": "e271da76-1570-4c8f-99eb-d05ad4532693"
+}, {
+	"text": "Security through obscurity.",
+	"deck": "cybersecurity",
+	"_id": "9b4a6032-5745-4158-bf4d-cba2dc3d0c3e"
+}, {
+	"text": "Illuminati steganography embedded in Wikipedia.",
+	"deck": "cybersecurity",
+	"_id": "0a71c001-3e1e-4808-b3fb-2bb3f37fd4c8"
+}, {
+	"text": "A WoW auction hack.",
+	"deck": "cybersecurity",
+	"_id": "acaac392-7c3a-47fb-ab18-5f900ceb5de1"
+}, {
+	"text": "A playground visit from Cipher the Encryption Marmot.",
+	"deck": "cybersecurity",
+	"_id": "aab49915-70dd-4e4c-bb0f-62370c148f82"
+}, {
+	"text": "An undocumented feature appears!",
+	"deck": "cybersecurity",
+	"_id": "9af606d3-bed7-431a-9edf-5ab097603fee"
+}, {
+	"text": "The Gospel of Schneier.",
+	"deck": "cybersecurity",
+	"_id": "65b1281a-a0ab-44ef-9067-372fa09f6c22"
+}, {
+	"text": "A proper Oxford English dictionary attack.",
+	"deck": "cybersecurity",
+	"_id": "7b23922d-3c7c-401c-8c5f-31e23379abf2"
+}, {
+	"text": "An ominous SSID of \"Monitoring My Neighbors\".",
+	"deck": "cybersecurity",
+	"_id": "426807ca-e3dd-49da-b622-15eedbdad109"
+}, {
+	"text": "A corny security themed music video on YouTube.",
+	"deck": "cybersecurity",
+	"_id": "8dbd598c-e9f2-44bc-887b-9223d4a4e634"
+}, {
+	"text": "A vicious slap fight at Defcon.",
+	"deck": "cybersecurity",
+	"_id": "f43174ff-e8b0-492c-a627-370e3cce1f4a"
+}, {
+	"text": "Biometric authentication using a severed thumb.",
+	"deck": "cybersecurity",
+	"_id": "f71a76a7-8881-4bad-a4fc-59008b07e5e3"
+}, {
+	"text": "Wannabes hacking Tumblr.",
+	"deck": "cybersecurity",
+	"_id": "01fda68a-284c-438c-b781-ed9616fd0bbd"
+}, {
+	"text": "A Botox SQL injection.",
+	"deck": "cybersecurity",
+	"_id": "4477e2c7-5ea5-44bb-a152-b6af5bd3c6b0"
+}, {
+	"text": "20M records stolen from the Rock & Roll Hall of Fame.",
+	"deck": "cybersecurity",
+	"_id": "0bb5adfe-72b1-4d74-a4b3-a4944cf261a4"
+}, {
+	"text": "Trojans, botnets and zombies. Oh my!",
+	"deck": "cybersecurity",
+	"_id": "abf61f18-20cb-4504-96ac-6dbd3a77ed5b"
+}, {
+	"text": "A politician explaining network security.",
+	"deck": "cybersecurity",
+	"_id": "38b65d0d-9d1b-425d-86ed-d7d533595453"
+}, {
+	"text": "Being demoted back to the helpdesk.",
+	"deck": "cybersecurity",
+	"_id": "6eafc520-ef57-4de1-b263-d7aeeac29ecd"
+}, {
+	"text": "Using the server room micro-climate as a humidor.",
+	"deck": "cybersecurity",
+	"_id": "fe0d98a7-bd54-4010-b5c1-7a8332474f84"
+}, {
+	"text": "Explaining your security job to your mom.",
+	"deck": "cybersecurity",
+	"_id": "7e2180bf-b65f-4834-9880-df823540b1d6"
+}, {
+	"text": "Patching your patch the next day.",
+	"deck": "cybersecurity",
+	"_id": "49b0620c-a875-4739-a08b-76d1e5562c8b"
+}, {
+	"text": "Spoofing the CDC in an email to get out of work.",
+	"deck": "cybersecurity",
+	"_id": "80acc7bb-6e80-490c-9510-a0d7592c4eae"
+}, {
+	"text": "Stalking someone through Ingress portal takeovers.",
+	"deck": "cybersecurity",
+	"_id": "a46293ca-7722-446b-abb3-414260cee00a"
+}, {
+	"text": "Doxxing everyone you don't like.",
+	"deck": "cybersecurity",
+	"_id": "59bbe1da-5759-40e0-9278-53cbc7649c28"
+}, {
+	"text": "Taking an XP box to BlackHat.",
+	"deck": "cybersecurity",
+	"_id": "c0bea906-ad21-45ce-a076-3b41728a33d1"
+}, {
+	"text": "Hacking your partner's home security cameras.",
+	"deck": "cybersecurity",
+	"_id": "ea7f505e-6c03-49a3-89c0-c1fcc927131f"
+}, {
+	"text": "Retiring on the proceeds from dating-site scams.",
+	"deck": "cybersecurity",
+	"_id": "5f442293-2879-4752-89b6-c9e5e2193625"
+}, {
+	"text": "Sending emails to all your contacts about the Teddy Bear virus.",
+	"deck": "cybersecurity",
+	"_id": "bec569df-559d-408e-9d9c-ee3d2b0e4fb6"
+}, {
+	"text": "Using the same password for banking, social media, and your work VPN.",
+	"deck": "cybersecurity",
+	"_id": "aa8fc6d7-2107-453b-836a-93891d178197"
+}, {
+	"text": "Using the Tao of Pooh as a book cypher",
+	"deck": "cybersecurity",
+	"_id": "fae2188a-f7c3-458e-9db9-ff0193ee879b"
+}, {
+	"text": "Citing the first and fourth amendments from memory.",
+	"deck": "cybersecurity",
+	"_id": "b033e8dc-8168-4718-9225-d7ea4d9f5885"
+}, {
+	"text": "Texting while Wardriving.",
+	"deck": "cybersecurity",
+	"_id": "1855f9b4-a3d4-449a-8394-055a2cabd5bf"
+}, {
+	"text": "Hosting a warez BBS on Dad's Apple IIe.",
+	"deck": "cybersecurity",
+	"_id": "68e7a477-6e78-41ad-9160-e33ce4034d8a"
+}, {
+	"text": "Hacking the WOPR with cheese.",
+	"deck": "cybersecurity",
+	"_id": "11c67417-3a62-43b4-a906-7a04109550ee"
+}, {
+	"text": "DDoSing your kids' Minecraft server.",
+	"deck": "cybersecurity",
+	"_id": "0775573f-82c0-4225-9934-25e5248c2e05"
+}, {
+	"text": "Actually meeting complexity requirements.",
+	"deck": "cybersecurity",
+	"_id": "33e48794-3862-4acb-b028-a12c6fdc1dc8"
+}, {
+	"text": "Commandeering SETI@home for nefarious purposes.",
+	"deck": "cybersecurity",
+	"_id": "4673a80a-0856-4da8-8bbd-1cb8cf37a674"
+}, {
+	"text": "Wardialing a series of tubes.",
+	"deck": "cybersecurity",
+	"_id": "e0564b53-3108-450d-ac77-6007d103a053"
+}, {
+	"text": "Borrowing an access card to the server room.",
+	"deck": "cybersecurity",
+	"_id": "059cd763-5a3b-4335-a1dc-5d6e87413563"
+}, {
+	"text": "Partying with the Feds.",
+	"deck": "cybersecurity",
+	"_id": "d4f56dd5-dfb6-4ba3-84f8-9225872d526e"
+}, {
+	"text": "Proxying blacked out sports streams through Antarctica.",
+	"deck": "cybersecurity",
+	"_id": "9eba7ef3-ee0b-4da0-9afe-163a784a0ce9"
+}, {
+	"text": "Using PPTP over IPSec encapsulated in SSL.",
+	"deck": "cybersecurity",
+	"_id": "2ec2d4f4-5334-478d-ab6a-9ca92afe37b1"
+}, {
+	"text": "Browsing the Nickelodeon of the Deepweb",
+	"deck": "cybersecurity",
+	"_id": "f161b7e4-9699-46d9-8ade-795df2b1ccc7"
+}, {
+	"text": "Using a CAPTCHA flaw to access the IRS mainframe.",
+	"deck": "cybersecurity",
+	"_id": "7471b8a8-ae08-4019-9239-b80bd22998b4"
+}, {
+	"text": "Port knocking on backdoors.",
+	"deck": "cybersecurity",
+	"_id": "53f19ba2-5523-489d-9464-2c080dd6c7f3"
+}, {
+	"text": "Rooting the Timex Sinclair.",
+	"deck": "cybersecurity",
+	"_id": "636c1d93-982f-4485-8a60-8c445aa4bb30"
+}, {
+	"text": "Exploiting MySpace at a 2004 hack-a-thon event.",
+	"deck": "cybersecurity",
+	"_id": "aaa280f7-99dc-4cba-942e-0573f5141509"
+}, {
+	"text": "Port scanning using echolocation.",
+	"deck": "cybersecurity",
+	"_id": "aff66d45-9394-4d54-9b8d-765217ee9bc6"
+}, {
+	"text": "The surgeon general saying \"Always use password protection\".",
+	"deck": "cybersecurity",
+	"_id": "22d82811-3534-4e56-ba60-34b53942405e"
+}]
