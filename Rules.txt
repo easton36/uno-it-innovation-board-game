@@ -1,0 +1,5 @@
+How to Play:
+1. When the game/round starts, a black question card will be drawn. A player will be given the job of "Card Czar" which will choose the best answer.
+2. Each of the remaining (non-Card Czar) players will be given 10 cards from the answer deck. Each player will choose the card they think works best with the question card.
+3. Once all of the answers have been submitted, the Card Czar will choose the answer card they think works best. The player who submitted the selected card will then receive points for winning the round.
+4. Once all of the rounds have finished, the player who has the most points wins!
