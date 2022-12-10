@@ -21,7 +21,7 @@ const GameOver = ({ activeGame, players: playersProp }) => {
 	}, [playersProp, activeGame]);
 
 	const playersSorted = useMemo(() => {
-		return players.sort((a, b) => b.points - a.points);
+		return players.sort((a, b) => b.points - a.points).filter((player, index, self) => index === self.findIndex(p => p.name === player.name));
 	}, [players]);
 
 	return (
